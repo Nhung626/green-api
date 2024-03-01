@@ -128,5 +128,22 @@ public interface LabelKey {
     String LABEL_USER_PHONE = "label.user.phone";
     String LABEL_USER_EMAIL = "label.user.email";
     String LABEL_USER_PASSWORD = "label.user.password";
+    String LABEL_USER_ROLE = "label.user.role";
     //END USER
+
+    //BEGIN USER INFO
+    String LABEL_USER_INFO = "label.user-info";
+    String LABEL_USER_INFO_ID = "label.user-info.id";
+    String LABEL_USER_INFO_USER_ID = "label.user-info.user-id";
+    String LABEL_USER_INFO_GENDER = "label.user-info.gender";
+    String LABEL_USER_INFO_IS_GENDER_P = "label.user-info.is-gender-p";
+    String LABEL_USER_INFO_DATE_OF_BIRTH = "label.user-info.date-of-birth";
+    String LABEL_USER_INFO_IS_DATE_OF_BIRTH_P = "label.user-info.is-date-of-birth-p";
+    String LABEL_USER_INFO_EMAIL = "label.user-info.email";
+    String LABEL_USER_INFO_IS_EMAIL_P = "label.user-info.is-email-p";
+    String LABEL_USER_INFO_ADDRESS = "label.user-info.address";
+    String LABEL_USER_INFO_IS_ADDRESS_P = "label.user-info.is-address-p";
+    String LABEL_USER_INFO_INTRODUCE = "label.user-info.introduce";
+    String LABEL_USER_INFO_IS_INTRODUCE_P = "label.user-info.is-introduce-p";
+    //END USER INFO
 }
