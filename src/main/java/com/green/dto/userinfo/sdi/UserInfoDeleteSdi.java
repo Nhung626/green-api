@@ -9,5 +9,5 @@ import static com.green.constants.LabelKey.LABEL_USER_INFO_ID;
 @Data
 public class UserInfoDeleteSdi {
     @Validation(label = LABEL_USER_INFO_ID, required = true)
-    private Long userInfoId;
+    private Long id;
 }

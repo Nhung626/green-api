@@ -30,7 +30,7 @@ public class UserRepoCustomImpl implements UserRepoCustom {
         String sqlGetData = "select id, name, email, status, created_at, created_by, updated_at, updated_by  ";
 
         StringBuilder sqlConditional = new StringBuilder();
-        sqlConditional.append("from users ");
+        sqlConditional.append("from user ");
         sqlConditional.append("where status <> 2 ");
 
         if (!isNullObject(email)) {

@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<User, Long>, UserRepoCustom{
-    @Query(value = "select * from users where  email = :email and status = 1", nativeQuery = true)
+    @Query(value = "select * from user where  email = :email and status = 1", nativeQuery = true)
     Optional<User> findByEmail(String email);
-    @Query(value = "select * from users where  id = :id and status = 1", nativeQuery = true)
+    @Query(value = "select * from user where  id = :id and status = 1", nativeQuery = true)
     Optional<User> findUserById(Long id);
 }

@@ -2,12 +2,13 @@ package com.green.dto.userinfo.sdi;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.green.utils.valid.Validation;
+import lombok.Data;
 
 import java.time.LocalDate;
 
 import static com.green.constants.LabelKey.*;
 import static com.green.utils.DateTimeUtils.DATE_FORMAT2;
-
+@Data
 public class UserInfoCreateSdi {
     //    @ApiModelProperty(notes = "Id người dùng")
     @Validation(label = LABEL_USER_ID, required = true)

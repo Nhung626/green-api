@@ -1,27 +1,11 @@
 package com.green.dto.userinfo.sdo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.time.LocalDate;
-
+@Data
+@AllArgsConstructor(staticName = "of")
 public class UserInfoUpdateSdo {
-    private Long userId;
-
-    private int gender;
-
-    private Boolean isGenderP;
-
-    private LocalDate dateOfBirth;
-
-    private Boolean isDateOfBirthP;
-
-    private String email;
-
-    private Boolean isEmailP;
-
-    private String address;
-
-    private Boolean isAddressP;
-
-    private String introduce;
-
-    private Boolean isIntroduceP;
+    private Long id;
 }

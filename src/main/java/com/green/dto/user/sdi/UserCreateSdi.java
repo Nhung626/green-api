@@ -1,6 +1,5 @@
 package com.green.dto.user.sdi;
 
-import com.green.constants.Role;
 import com.green.utils.valid.Validation;
 import lombok.Data;
 

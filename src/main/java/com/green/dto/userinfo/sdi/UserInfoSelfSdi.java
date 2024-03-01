@@ -8,5 +8,5 @@ import static com.green.constants.LabelKey.LABEL_USER_ID;
 @Data
 public class UserInfoSelfSdi {
     @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
+    private Long id;
 }
