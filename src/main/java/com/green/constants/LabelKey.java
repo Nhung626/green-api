@@ -135,6 +135,8 @@ public interface LabelKey {
     String LABEL_USER_INFO = "label.user-info";
     String LABEL_USER_INFO_ID = "label.user-info.id";
     String LABEL_USER_INFO_USER_ID = "label.user-info.user-id";
+
+    String LABEL_USER_INFO_AVATA = "label.user-info.avata";
     String LABEL_USER_INFO_GENDER = "label.user-info.gender";
     String LABEL_USER_INFO_IS_GENDER_P = "label.user-info.is-gender-p";
     String LABEL_USER_INFO_DATE_OF_BIRTH = "label.user-info.date-of-birth";

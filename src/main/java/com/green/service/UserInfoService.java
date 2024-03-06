@@ -9,4 +9,5 @@ public interface UserInfoService {
     UserInfoSearchSdo search(UserInfoSearchSdi req);
     UserInfoDeleteSdo delete(UserInfoDeleteSdi req);
     UserInfoSelfSdo self(UserInfoSelfSdi req);
+    UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req);
 }

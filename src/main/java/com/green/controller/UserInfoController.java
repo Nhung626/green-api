@@ -53,6 +53,15 @@ public class UserInfoController {
         return new ApiResponse(rs);
     }
 
+    @PostMapping("/update-avata")
+//    @ApiOperation("[Cập nhập avata]")
+    public ApiResponse<UserAvataUpdateSdo> update(
+            @RequestBody @Valid UserAvataUpdateSdi req
+    ) {
+        var rs = userInfoService.uploadAvata(req);
+        return new ApiResponse(rs);
+    }
+
     @PostMapping("/delete")
 //    @ApiOperation("[Xóa]")
     public ApiResponse<UserInfoDeleteSdo> delete(

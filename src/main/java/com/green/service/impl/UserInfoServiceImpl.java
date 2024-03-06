@@ -6,6 +6,7 @@ import com.green.dto.userinfo.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.UserInfo;
 import com.green.repository.UserInfoRepo;
+import com.green.service.FileService;
 import com.green.service.UserInfoService;
 import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
@@ -21,15 +22,23 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoRepo userInfoRepo;
     private final CommonService commonService;
+    private final FileService fileService;
 
     public UserInfoCreateSdo create(UserInfoCreateSdi req) {
+        var avata = req.getAvata();
         checkUser(req.getUserId());
 
         var userInfoOptional = userInfoRepo.findByUserId(req.getUserId());
         if (userInfoOptional.isPresent())
             throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
 
+        if (avata.isEmpty()) {
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
+        }
+
         var newUserInfo = copyProperties(req, UserInfo.class);
+        var avataDto = fileService.uploadFile(avata);
+        newUserInfo.setAvataId(avataDto.getId());
 
         userInfoRepo.save(newUserInfo);
         return UserInfoCreateSdo.of(newUserInfo.getId());
@@ -61,6 +70,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfoSelfSdo self(UserInfoSelfSdi req) {
         var userInfo = getUserInfo(req.getId());
         return copyProperties(userInfo, UserInfoSelfSdo.class);
+    }
+
+    public UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req){
+        var avata = req.getAvata();
+        checkUser(req.getUserId());
+
+        var userInfo = getUserInfoByUserID(req.getUserId());
+        var avataDto = fileService.uploadFile(avata);
+        userInfo.setAvataId(avataDto.getId());
+        return UserAvataUpdateSdo.of(userInfo.getId());
     }
 
     private void checkUser(Long userId) {
