@@ -47,12 +47,4 @@ public class UserInfoUpdateSdi {
     //    @ApiModelProperty(notes = "không công khai địa chỉ")
     @Validation(label = LABEL_USER_INFO_IS_ADDRESS_P)
     private Boolean isAddressP;
-
-    //    @ApiModelProperty(notes = "Giới thiệu")
-    @Validation(label = LABEL_USER_INFO_INTRODUCE)
-    private String introduce;
-
-    //    @ApiModelProperty(notes = "Không công khai iới thiệu")
-    @Validation(label = LABEL_USER_INFO_IS_INTRODUCE_P)
-    private Boolean isIntroduceP;
 }

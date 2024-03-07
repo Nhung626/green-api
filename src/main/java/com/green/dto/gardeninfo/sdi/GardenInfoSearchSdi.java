@@ -9,8 +9,7 @@ import static com.green.constants.LabelKey.*;
 public class GardenInfoSearchSdi {
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
-    @Validation(label = LABEL_GARDEN_INFO_ID, required = true)
-    private String id;
+
     @Validation(label = LABEL_GARDEN_INFO_NAME, required = true)
     private String name;
 }

@@ -1,6 +1,7 @@
 package com.green.service.impl;
 
 import com.green.constants.Const;
+import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
 import com.green.dto.userinfo.sdo.*;
@@ -13,6 +14,7 @@ import com.green.service.GardenInfoService;
 import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,9 +62,8 @@ public class GardenInfoServiceImpl implements GardenInfoService {
     }
 
     @Override
-    public GardenInfoSearchSdo search(GardenInfoSearchSdi req) {
-        var gardenInfo = getGardenInfoByUserID(req.getUserId());
-        return copyProperties(gardenInfo, GardenInfoSearchSdo.class);
+    public Page<GardenInfoSearchSdo> search(GardenInfoSearchSdi req, PageInfo pageInfo) {
+        return gardenInfoRepo.search(req, pageInfo);
     }
 
     @Override
