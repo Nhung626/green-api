@@ -10,7 +10,4 @@ import static com.green.constants.LabelKey.LABEL_USER_NAME;
 public class UserSearchSdi {
     @Validation(label = LABEL_USER_EMAIL, required = true)
     private String email;
-
-    @Validation(label = LABEL_USER_NAME, required = true)
-    private String name;
 }

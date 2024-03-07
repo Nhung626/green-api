@@ -33,12 +33,12 @@ public class UserInfoUpdateSdi {
     private Boolean isDateOfBirthP;
 
     //    @ApiModelProperty(notes = "Email")
-    @Validation(label = LABEL_USER_INFO_EMAIL)
-    private String email;
+    @Validation(label = LABEL_USER_INFO_PHONE)
+    private String phone;
 
     //    @ApiModelProperty(notes = "Không công khai email")
-    @Validation(label = LABEL_USER_INFO_IS_EMAIL_P)
-    private Boolean isEmailP;
+    @Validation(label = LABEL_USER_INFO_IS_PHONE_P)
+    private Boolean isPhoneP;
 
     //    @ApiModelProperty(notes = "Địa chỉ")
     @Validation(label = LABEL_USER_INFO_ADDRESS)

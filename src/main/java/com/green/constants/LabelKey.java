@@ -141,11 +141,20 @@ public interface LabelKey {
     String LABEL_USER_INFO_IS_GENDER_P = "label.user-info.is-gender-p";
     String LABEL_USER_INFO_DATE_OF_BIRTH = "label.user-info.date-of-birth";
     String LABEL_USER_INFO_IS_DATE_OF_BIRTH_P = "label.user-info.is-date-of-birth-p";
-    String LABEL_USER_INFO_EMAIL = "label.user-info.email";
-    String LABEL_USER_INFO_IS_EMAIL_P = "label.user-info.is-email-p";
+    String LABEL_USER_INFO_PHONE = "label.user-info.phone";
+    String LABEL_USER_INFO_IS_PHONE_P = "label.user-info.is-phone-p";
     String LABEL_USER_INFO_ADDRESS = "label.user-info.address";
     String LABEL_USER_INFO_IS_ADDRESS_P = "label.user-info.is-address-p";
     String LABEL_USER_INFO_INTRODUCE = "label.user-info.introduce";
     String LABEL_USER_INFO_IS_INTRODUCE_P = "label.user-info.is-introduce-p";
     //END USER INFO
+
+    //BEGIN GARDEN INFO
+    String LABEL_GARDEN_INFO = "label.garden-info";
+    String LABEL_GARDEN_INFO_ID = "label.garden-info.id";
+    String LABEL_GARDEN_INFO_NAME = "label.garden-info";
+    String LABEL_GARDEN_INFO_COVER = "label.garden-info.cover";
+    String LABEL_GARDEN_INFO_COVER_ID = "label.garden-info.cover-id";
+    String LABEL_GARDEN_INFO_DESCRIPTION = "label.garden-info.description";
+    //END GARDEN INFO
 }

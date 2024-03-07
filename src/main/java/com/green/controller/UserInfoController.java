@@ -17,7 +17,7 @@ public class UserInfoController {
     private final UserInfoService userInfoService;
 
     @PostMapping("/create")
-//    @ApiOperation("[Tạo mới]")
+//  ("[Tạo mới]")
     public ApiResponse<UserInfoCreateSdo> create(
             @RequestBody @Valid UserInfoCreateSdi req
     ) {
@@ -26,7 +26,7 @@ public class UserInfoController {
     }
 
     @GetMapping("/search")
-//    @ApiOperation("[Tìm kiếm]")
+//  ("[Tìm kiếm]")
     public ApiResponse<Page<UserInfoSearchSdo>> search(
             UserInfoSearchSdi req
     ){
@@ -35,7 +35,7 @@ public class UserInfoController {
     }
 
     @GetMapping("/self")
-//    @ApiOperation("[chi tiết]")
+//  ("[chi tiết]")
     public ApiResponse<UserInfoSelfSdo> self(
             UserInfoSelfSdi req
     ){
@@ -45,7 +45,7 @@ public class UserInfoController {
 
 
     @PostMapping("/update")
-//    @ApiOperation("[Cập nhập]")
+//  ("[Cập nhập]")
     public ApiResponse<UserInfoUpdateSdo> update(
             @RequestBody @Valid UserInfoUpdateSdi req
     ) {
@@ -54,7 +54,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/update-avata")
-//    @ApiOperation("[Cập nhập avata]")
+//  ("[Cập nhập avata]")
     public ApiResponse<UserAvataUpdateSdo> update(
             @RequestBody @Valid UserAvataUpdateSdi req
     ) {
@@ -63,7 +63,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/delete")
-//    @ApiOperation("[Xóa]")
+//  ("[Xóa]")
     public ApiResponse<UserInfoDeleteSdo> delete(
             @RequestBody @Valid UserInfoDeleteSdi req
     ) {

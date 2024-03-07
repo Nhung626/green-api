@@ -10,8 +10,6 @@ public interface UserService {
 
     UserSelfSdo self(UserSelfSdi req);
 
-    UserCreateSdo create(UserCreateSdi req);
-
     UserRegisterSdo register(UserRegisterSdi req);
 
     UserResetPasswordSdo resetPassword(UserResetPasswordSdi req);

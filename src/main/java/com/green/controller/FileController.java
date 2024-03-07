@@ -9,7 +9,7 @@ import com.green.dto.file.sdo.FileSelfSdo;
 import com.green.dto.file.sdo.FileUploadSdo;
 import com.green.service.FileService;
 //import io.swagger.annotations.Api;
-////import io.swagger.annotations.ApiOperation;
+////import io.swagger.annotatio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +24,7 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-//    @ApiOperation("[tải lên]")
+//  ("[tải lên]")
     public ApiResponse<FileUploadSdo> uploadFile(
             @RequestPart("file") MultipartFile req, Boolean isTemp) {
         var rs = fileService.uploadFile(req, isTemp);
@@ -33,7 +33,7 @@ public class FileController {
     }
 
     @GetMapping("/search")
-//    @ApiOperation("[tìm kiếm]")
+//  ("[tìm kiếm]")
     public ApiResponse<List<FileSearchSdo>> search(FileSearchSdi req) {
         var rs = fileService.search(req);
         return new ApiResponse(rs);
@@ -41,7 +41,7 @@ public class FileController {
     }
 
     @GetMapping("/self")
-//    @ApiOperation("[Chi tiết]")
+//  ("[Chi tiết]")
     public ApiResponse<FileSelfSdo> self(FileSelfSdi req) {
         var rs = fileService.self(req);
         return new ApiResponse(rs);
@@ -49,7 +49,7 @@ public class FileController {
     }
 
     @PostMapping("/delete")
-//    @ApiOperation("[Xoa]")
+//  ("[Xoa]")
     public ApiResponse<List<FileUploadSdo>> delete(
             @RequestBody FileDeleteSdi req) {
         var rs = fileService.delete(req);

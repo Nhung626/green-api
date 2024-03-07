@@ -17,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/search")
-//    @ApiOperation("[Tìm kiếm]")
+    //Tìm kiếm
     public ApiResponse<UserSearchSdo> search(
             UserSearchSdi req, PageInfo pageInfo
     ) {
@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/self")
-//    @ApiOperation("[chi tiết]")
+    //chi tiết
     public ApiResponse<UserSelfSdo> self(
             UserSelfSdi sdi
     ) {
@@ -34,18 +34,10 @@ public class UserController {
         return new ApiResponse(rs);
     }
 
-    @PostMapping("/create")
-//    @ApiOperation("[Tạo mới]")
-    public ApiResponse<UserCreateSdo> create(
-            @RequestBody @Valid UserCreateSdi req
-    ) {
-        var rs = userService.create(req);
-        return new ApiResponse(rs);
-    }
 
     @PostMapping("/signup")
-//    @ApiOperation("[Đăng ký tài khoản người dùng]")
-    public ApiResponse<UserCreateSdo> signup(
+    //Đăng ký tài khoản người dùng
+    public ApiResponse<UserRegisterSdo> signup(
             @RequestBody @Valid UserRegisterSdi req
     ) {
         var rs = userService.register(req);
@@ -53,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-//    @ApiOperation("[Cập nhập]")
+    //Cập nhập
     public ApiResponse<UserUpdateSdo> update(
             @RequestBody @Valid UserUpdateSdi sdi
     ) {
@@ -62,7 +54,7 @@ public class UserController {
     }
 
     @PostMapping("/reset-password")
-//    @ApiOperation("[Đặt lại mật khẩu]")
+    //Đặt lại mật khẩu
     public ApiResponse<UserResetPasswordSdo> resetPassword(
             @RequestBody @Valid UserResetPasswordSdi req
     ) {
@@ -71,7 +63,7 @@ public class UserController {
     }
 
     @PostMapping("/change-password")
-//    @ApiOperation("[Đổi mật khẩu]")
+    //Đổi mật khẩu
     public ApiResponse<UserChangePasswordSdo> changePassword(
             @RequestBody @Valid UserChangePasswordSdi req
     ) {
@@ -80,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/delete")
-//    @ApiOperation("[Xóa]")
+    //Xóa
     public ApiResponse<UserDeleteSdo> delete(
             @RequestBody @Valid UserDeleteSdi sdi
     ) {

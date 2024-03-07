@@ -1,10 +1,10 @@
-package com.green.dto.user.sdo;
+package com.green.dto.gardeninfo.sdo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor(staticName = "of")
-public class UserRegisterSdo {
+public class GardenInfoCreateSdo {
     private Long id;
 }

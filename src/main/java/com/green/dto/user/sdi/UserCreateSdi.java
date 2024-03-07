@@ -7,9 +7,6 @@ import static com.green.constants.LabelKey.*;
 
 @Data
 public class UserCreateSdi {
-    @Validation(label = LABEL_USER_NAME, required = true)
-    private String name;
-
     @Validation(label = LABEL_USER_EMAIL, required = true)
     private String email;
 

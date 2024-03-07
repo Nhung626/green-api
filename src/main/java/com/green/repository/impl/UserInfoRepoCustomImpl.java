@@ -10,5 +10,4 @@ import org.springframework.data.domain.Page;
 @RequiredArgsConstructor
 public class UserInfoRepoCustomImpl implements UserInfoRepoCustom {
     private final QueryRepo queryRepo;
-
 }

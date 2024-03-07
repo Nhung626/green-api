@@ -1,6 +1,7 @@
 package com.green.security;
 
 import com.green.exception.AppException;
+import com.green.model.User;
 import com.green.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,10 +22,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(email).orElseThrow(
+        User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_EMAIL))
         );
         return UserDetailsImpl.build(user);
     }
-
 }

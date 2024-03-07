@@ -13,6 +13,7 @@ import com.green.service.common.CommonService;
 import com.green.utils.EncryptAndDecrypt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -26,6 +27,7 @@ import static com.green.utils.DataUtil.validatePassword;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
+    private final PasswordEncoder encoder;
     private final CommonService commonService;
 
     @Override
@@ -40,25 +42,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserCreateSdo create(UserCreateSdi req) {
+    public UserRegisterSdo register(UserRegisterSdi req) {
         var userOptional = userRepo.findByEmail(req.getEmail());
         if (userOptional.isPresent())
             throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_EMAIL));
 
-        var user = copyProperties(req, User.class);
-
-        String encryptPassword = EncryptAndDecrypt.encrypt(req.getPassword().getBytes(StandardCharsets.UTF_8));
-        user.setPassword(encryptPassword);
+        User user = new User();
+        user.setEmail(req.getEmail());
+        user.setPassword(encoder.encode(req.getPassword()));
         user.setRole(Role.ROLE_USER);
         userRepo.save(user);
 
-        return UserCreateSdo.of(user.getId());
+        return UserRegisterSdo.of(user.getId());
     }
 
-    @Override
-    public UserRegisterSdo register(UserRegisterSdi req) {
-        return null;
-    }
 
     @Override
     public UserResetPasswordSdo resetPassword(UserResetPasswordSdi req) {
@@ -75,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if (!validatePassword(password))
             throw new AppException(ERROR_NOT_MATCH, List.of(LABEL_PASSWORD));
 
-        String encryptPassword = EncryptAndDecrypt.encrypt(req.getPassword().getBytes(StandardCharsets.UTF_8));
+        String encryptPassword = encoder.encode(req.getPassword());
         existUser.setPassword(encryptPassword);
         userRepo.save(existUser);
 
@@ -93,7 +90,7 @@ public class UserServiceImpl implements UserService {
         if (!validatePassword(newPassword))
             throw new AppException(ERROR_NOT_MATCH, List.of(LABEL_PASSWORD));
 
-        String encryptPassword = EncryptAndDecrypt.encrypt(newPassword.getBytes(StandardCharsets.UTF_8));
+        String encryptPassword = encoder.encode(req.getNewPassword());
         user.setPassword(encryptPassword);
         userRepo.save(user);
 

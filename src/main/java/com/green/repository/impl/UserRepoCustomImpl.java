@@ -21,13 +21,11 @@ public class UserRepoCustomImpl implements UserRepoCustom {
     @Override
     public Page<UserSearchSdo> search(UserSearchSdi request, PageInfo pageInfo) {
         var email = request.getEmail();
-        var name = request.getName();
-
         Map<String, Object> queryParams = new HashMap<>();
 
         String sqlCountAll = "select count(1) ";
 
-        String sqlGetData = "select id, name, email, status, created_at, created_by, updated_at, updated_by  ";
+        String sqlGetData = "select id, email, status, created_at, created_by, updated_at, updated_by  ";
 
         StringBuilder sqlConditional = new StringBuilder();
         sqlConditional.append("from user ");
@@ -36,11 +34,6 @@ public class UserRepoCustomImpl implements UserRepoCustom {
         if (!isNullObject(email)) {
             sqlConditional.append(" and email like :email ");
             queryParams.put("email", toLikeConditional(email));
-        }
-
-        if (!isNullObject(name)) {
-            sqlConditional.append(" and name ilike :name ");
-            queryParams.put("name", toLikeConditional(name));
         }
 
         String sqlSort = "order by id asc ";

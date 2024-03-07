@@ -1,6 +1,8 @@
 package com.green.controller;
 
 import com.green.dto.auth.sdi.LoginSdi;
+import com.green.dto.auth.sdo.LoginSdo;
+import com.green.dto.common.ApiResponse;
 import com.green.model.User;
 import com.green.repository.UserRepo;
 import com.green.security.UserDetailsImpl;
@@ -27,10 +29,10 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final UserRepo userRepo;
 
-    @PostMapping(value = "/auth/login")
-    public ResponseEntity<Object> login(@RequestBody LoginSdi loginUserDto) {
+    @PostMapping(value = "/login")
+    public ResponseEntity<LoginSdo> login(@RequestBody LoginSdi req) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginUserDto.getEmail(), loginUserDto.getPassword()));
+                new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtil.generateJwtToken(authentication);
@@ -39,12 +41,8 @@ public class AuthController {
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).toList();
         String role = roles.get(0);
-//        User customer = customerRepository.findByUserId(userDetails.getId());
-//        return ResponseEntity.ok(JwtUserResponse.builder()
-//                .token(jwt).role(role).type("Bearer")
-//                .id(customer.getUserId())
-//                .email(customer.getUser().getEmail())
-//                .build());
-        return null;
+        User user = userRepo.findById(userDetails.getId()).orElseThrow();
+        var rs = new LoginSdo(jwt, "Bearer", user.getId(), user.getEmail(),role );
+        return ResponseEntity.ok(rs);
     }
 }
