@@ -9,11 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "user")
-public class User extends AbstractAudit{
-
-    @Column(name = "name")
-    private String name;
-
+public class User extends AbstractAudit {
     @Column(name = "email")
     private String email;
 

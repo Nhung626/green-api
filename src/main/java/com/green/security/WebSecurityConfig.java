@@ -3,6 +3,7 @@ package com.green.security;
 import com.green.security.jwt.JwtAuthEntryPoint;
 import com.green.security.jwt.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,12 +22,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-    private final UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
-    private final JwtAuthEntryPoint unauthorizedHandler;
-    public static final String[] AUTH_WHITELIST = {
-            "/api/user/create", "/api/auth/login", "/api/user/signup", "/api/user/reset-password"
-    };
+    @Autowired
+    private JwtAuthEntryPoint unauthorizedHandler;
+
     @Bean
     public JwtAuthFilter authenticationJwtTokenFilter() {
         return new JwtAuthFilter();
@@ -58,7 +59,10 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(AUTH_WHITELIST).permitAll()
+                        auth.requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/user/signup").permitAll()
+//                                .requestMatchers("/api/v1/image/**").permitAll()
+//                                .requestMatchers("/api/v1/payment/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
