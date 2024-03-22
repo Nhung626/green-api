@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/api/user/signup").permitAll()
-//                                .requestMatchers("/api/v1/image/**").permitAll()
+                                .requestMatchers("/api/media/**").permitAll()
 //                                .requestMatchers("/api/v1/payment/**").permitAll()
                                 .anyRequest().authenticated()
                 );

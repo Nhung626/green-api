@@ -38,7 +38,7 @@ public class CommonServiceImpl implements CommonService {
         if (userDetails == null) {
             return null;
         }
-        return userDetails.getUsername();
+        return userDetails.getEmail();
     }
 
 //    public String getLang() {
@@ -49,13 +49,13 @@ public class CommonServiceImpl implements CommonService {
 //        return userDetails.getLanguage();
 //    }
 
-//    public Long getSessionId() {
-//        UserDetailsImpl userDetails = (UserDetailsImpl) userDetails();
-//        if (userDetails == null) {
-//            return null;
-//        }
-//        return userDetails.getSessionId();
-//    }
+    public Long getSessionId() {
+        UserDetailsImpl userDetails = (UserDetailsImpl) userDetails();
+        if (userDetails == null) {
+            return null;
+        }
+        return userDetails.getSessionId();
+    }
 
     @Override
     public Boolean existUser(Long userId) {

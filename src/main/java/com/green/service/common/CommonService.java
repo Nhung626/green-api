@@ -9,9 +9,7 @@ public interface CommonService {
 
     String getUsernameLogin();
 
-//    String getLang();
-//
-//    Long getSessionId();
+    Long getSessionId();
 
     Boolean existUser(Long userId);
 }

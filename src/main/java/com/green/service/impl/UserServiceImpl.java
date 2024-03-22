@@ -2,7 +2,6 @@ package com.green.service.impl;
 
 import com.green.constants.Const;
 import com.green.constants.Role;
-import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
 import com.green.exception.AppException;
@@ -12,11 +11,9 @@ import com.green.service.UserService;
 import com.green.service.common.CommonService;
 import com.green.utils.EncryptAndDecrypt;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static com.green.constants.LabelKey.*;
@@ -31,8 +28,8 @@ public class UserServiceImpl implements UserService {
     private final CommonService commonService;
 
     @Override
-    public Page<UserSearchSdo> search(UserSearchSdi req, PageInfo pageInfo) {
-        return userRepo.search(req, pageInfo);
+    public List<UserSearchSdo> search(UserSearchSdi request) {
+        return userRepo.search(request);
     }
 
     @Override

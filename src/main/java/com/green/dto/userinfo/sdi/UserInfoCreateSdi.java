@@ -20,7 +20,7 @@ public class UserInfoCreateSdi {
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)
-    private int gender;
+    private String gender;
 
     //    @ApiModelProperty(notes = "Không công khai giới tính")
     @Validation(label = LABEL_USER_INFO_IS_GENDER_P)
@@ -50,12 +50,4 @@ public class UserInfoCreateSdi {
     //    @ApiModelProperty(notes = "không công khai địa chỉ")
     @Validation(label = LABEL_USER_INFO_IS_ADDRESS_P)
     private Boolean isAddressP;
-
-    //    @ApiModelProperty(notes = "Giới thiệu")
-    @Validation(label = LABEL_USER_INFO_INTRODUCE)
-    private String introduce;
-
-    //    @ApiModelProperty(notes = "Không công khai iới thiệu")
-    @Validation(label = LABEL_USER_INFO_IS_INTRODUCE_P)
-    private Boolean isIntroduceP;
 }

@@ -17,11 +17,11 @@ public class UserInfoUpdateSdi {
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)
-    private int gender;
+    private String gender;
 
     //    @ApiModelProperty(notes = "Không công khai giới tính")
     @Validation(label = LABEL_USER_INFO_IS_GENDER_P)
-    private Boolean isGenderP;
+    private boolean isGenderP;
 
     @JsonFormat(pattern = DATE_FORMAT2)
 //    @ApiModelProperty(notes = "Ngày sinh")
@@ -30,7 +30,7 @@ public class UserInfoUpdateSdi {
 
     //    @ApiModelProperty(notes = "Không công khai ngày sinh")
     @Validation(label = LABEL_USER_INFO_IS_DATE_OF_BIRTH_P)
-    private Boolean isDateOfBirthP;
+    private boolean isDateOfBirthP;
 
     //    @ApiModelProperty(notes = "Email")
     @Validation(label = LABEL_USER_INFO_PHONE)
@@ -38,7 +38,7 @@ public class UserInfoUpdateSdi {
 
     //    @ApiModelProperty(notes = "Không công khai email")
     @Validation(label = LABEL_USER_INFO_IS_PHONE_P)
-    private Boolean isPhoneP;
+    private boolean isPhoneP;
 
     //    @ApiModelProperty(notes = "Địa chỉ")
     @Validation(label = LABEL_USER_INFO_ADDRESS)
@@ -46,13 +46,5 @@ public class UserInfoUpdateSdi {
 
     //    @ApiModelProperty(notes = "không công khai địa chỉ")
     @Validation(label = LABEL_USER_INFO_IS_ADDRESS_P)
-    private Boolean isAddressP;
-
-    //    @ApiModelProperty(notes = "Giới thiệu")
-    @Validation(label = LABEL_USER_INFO_INTRODUCE)
-    private String introduce;
-
-    //    @ApiModelProperty(notes = "Không công khai iới thiệu")
-    @Validation(label = LABEL_USER_INFO_IS_INTRODUCE_P)
-    private Boolean isIntroduceP;
+    private boolean isAddressP;
 }

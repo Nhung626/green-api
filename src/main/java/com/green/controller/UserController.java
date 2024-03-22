@@ -1,13 +1,14 @@
 package com.green.controller;
 
 import com.green.dto.common.ApiResponse;
-import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
 import com.green.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -18,13 +19,14 @@ public class UserController {
 
     @GetMapping("/search")
     //Tìm kiếm
-    public ApiResponse<UserSearchSdo> search(
-            UserSearchSdi req, PageInfo pageInfo
+    public ApiResponse<List<UserSearchSdo>> search(
+            UserSearchSdi req
     ) {
-        var rs = userService.search(req, pageInfo);
+        var rs = userService.search(req);
         return new ApiResponse(rs);
     }
 
+//    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/self")
     //chi tiết
     public ApiResponse<UserSelfSdo> self(

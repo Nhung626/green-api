@@ -3,25 +3,25 @@ package com.green.dto.userinfo.sdo;
 import java.time.LocalDate;
 
 public class UserInfoSearchSdo {
+    private Long id;
+
     private Long userId;
+
+    private Long avataId;
 
     private int gender;
 
-    private Boolean isGenderP;
+    private boolean isGenderP;
 
     private LocalDate dateOfBirth;
 
-    private Boolean isDateOfBirthP;
+    private boolean isDateOfBirthP;
 
-    private String email;
+    private String phone;
 
-    private Boolean isEmailP;
+    private boolean isPhoneP;
 
     private String address;
 
-    private Boolean isAddressP;
-
-    private String introduce;
-
-    private Boolean isIntroduceP;
+    private boolean isAddressP;
 }

@@ -41,9 +41,4 @@ public class UserInfo extends AbstractAudit{
     @Column(name = "is_address_p", nullable = false, columnDefinition="boolean DEFAULT false")
     private boolean isAddressP;
 
-    @Column(name= "introduce")
-    private String introduce;
-
-    @Column(name = "is_introduce_p", nullable = false, columnDefinition="boolean DEFAULT false")
-    private Boolean isIntroduceP;
 }

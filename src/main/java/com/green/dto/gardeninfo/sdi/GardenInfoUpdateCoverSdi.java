@@ -10,7 +10,8 @@ import static com.green.constants.LabelKey.LABEL_GARDEN_INFO_ID;
 @Data
 public class GardenInfoUpdateCoverSdi {
     @Validation(label = LABEL_GARDEN_INFO_ID, required = true)
-    private Long userId;
+    private Long id;
+
     @Validation(label = LABEL_GARDEN_INFO_COVER, required = true)
     private MultipartFile cover;
 }
