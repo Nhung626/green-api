@@ -12,6 +12,6 @@ public interface GardenInfoRepo extends JpaRepository<GardenInfo, Long>, GardenI
     @Query(value = "select * from garden_info where  id = :id and status <>2 ", nativeQuery = true)
     Optional<GardenInfo> findById(Long id);
 
-    @Query(value = "select * from garden_info where  userId = :id and status <>2 ", nativeQuery = true)
+    @Query(value = "select * from garden_info where  user_id = :id and status <>2 ", nativeQuery = true)
     Optional<GardenInfo> findByUserId(Long id);
 }

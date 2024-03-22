@@ -5,16 +5,19 @@ import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
 import org.springframework.data.domain.Page;
 
+import java.io.IOException;
+import java.util.List;
+
 public interface GardenInfoService {
-    GardenInfoCreateSdo create(GardenInfoCreateSdi req);
+    GardenInfoCreateSdo create(GardenInfoCreateSdi req) throws IOException;
 
-    GardenInfoUpdateSdo update(GardenInfoUpdateSdi req);
+    GardenInfoUpdateSdo update(GardenInfoUpdateSdi req) throws IOException;
 
-    Page<GardenInfoSearchSdo> search(GardenInfoSearchSdi req, PageInfo pageInfo);
+    List<GardenInfoSearchSdo> search(GardenInfoSearchSdi req);
 
     GardenInfoDeleteSdo delete(GardenInfoDeleteSdi req);
 
     GardenInfoSelfSdo self(GardenInfoSelfSdi req);
 
-    GardenInfoUpdateCoverSdo uploadCover(GardenInfoUpdateCoverSdi req);
+    GardenInfoUpdateCoverSdo uploadCover(GardenInfoUpdateCoverSdi req) throws IOException;
 }

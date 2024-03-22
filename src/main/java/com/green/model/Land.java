@@ -8,13 +8,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "land")
-
 public class Land  extends AbstractAudit{
     @Column(name = "name")
     private String name;
 
-    @Column(name = "adress")
-    private String adress;
+    @Column(name = "address")
+    private String address;
 
     @Column(name = "width")
     private float width;
@@ -28,6 +27,6 @@ public class Land  extends AbstractAudit{
     @Column(name = "user_id")
     private Long userId;
 
-    //@Column(name = "garden_id")
-    //private Long gardenId;
+    @Column(name = "garden_id")
+    private Long gardenId;
 }

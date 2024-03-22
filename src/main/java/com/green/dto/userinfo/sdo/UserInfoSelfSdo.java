@@ -1,27 +1,31 @@
 package com.green.dto.userinfo.sdo;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Data
 public class UserInfoSelfSdo {
+    private Long id;
+
     private Long userId;
+
+    private Long avataId;
 
     private int gender;
 
-    private Boolean isGenderP;
+    private boolean isGenderP;
 
     private LocalDate dateOfBirth;
 
-    private Boolean isDateOfBirthP;
+    private boolean isDateOfBirthP;
 
-    private String email;
+    private String phone;
 
-    private Boolean isEmailP;
+    private boolean isPhoneP;
 
     private String address;
 
-    private Boolean isAddressP;
+    private boolean isAddressP;
 
-    private String introduce;
-
-    private Boolean isIntroduceP;
 }

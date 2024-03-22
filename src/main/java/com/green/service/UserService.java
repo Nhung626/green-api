@@ -5,8 +5,10 @@ import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface UserService {
-    Page<UserSearchSdo> search(UserSearchSdi req, PageInfo pageInfo);
+    List<UserSearchSdo> search(UserSearchSdi request);
 
     UserSelfSdo self(UserSelfSdi req);
 

@@ -5,6 +5,8 @@ import com.green.dto.user.sdi.UserSearchSdi;
 import com.green.dto.user.sdo.UserSearchSdo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface UserRepoCustom {
-    Page<UserSearchSdo> search(UserSearchSdi request, PageInfo pageInfo);
+    List<UserSearchSdo> search(UserSearchSdi request);
 }

@@ -8,6 +8,9 @@ import static com.green.constants.LabelKey.*;
 
 @Data
 public class GardenInfoUpdateSdi {
+    @Validation(label = LABEL_GARDEN_INFO_ID, required = true)
+    private Long id;
+
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
 

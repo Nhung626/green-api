@@ -2,7 +2,6 @@ package com.green.controller;
 
 import com.green.dto.auth.sdi.LoginSdi;
 import com.green.dto.auth.sdo.LoginSdo;
-import com.green.dto.common.ApiResponse;
 import com.green.model.User;
 import com.green.repository.UserRepo;
 import com.green.security.UserDetailsImpl;
@@ -42,7 +41,7 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority).toList();
         String role = roles.get(0);
         User user = userRepo.findById(userDetails.getId()).orElseThrow();
-        var rs = new LoginSdo(jwt, "Bearer", user.getId(), user.getEmail(),role );
+        var rs = new LoginSdo(jwt, "Bearer", user.getId(), user.getEmail(), role);
         return ResponseEntity.ok(rs);
     }
 }

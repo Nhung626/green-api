@@ -20,7 +20,7 @@ public class UserInfoCreateSdi {
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)
-    private int gender;
+    private String gender;
 
     //    @ApiModelProperty(notes = "Không công khai giới tính")
     @Validation(label = LABEL_USER_INFO_IS_GENDER_P)

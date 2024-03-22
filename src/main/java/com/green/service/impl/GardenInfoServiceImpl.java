@@ -1,37 +1,33 @@
 package com.green.service.impl;
 
 import com.green.constants.Const;
-import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
-import com.green.dto.userinfo.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.GardenInfo;
-import com.green.model.UserInfo;
 import com.green.repository.GardenInfoRepo;
-import com.green.service.FileService;
+import com.green.service.MediaService;
 import com.green.service.GardenInfoService;
 import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.green.constants.LabelKey.*;
-import static com.green.constants.LabelKey.LABEL_USER_INFO_USER_ID;
 import static com.green.utils.DataUtil.copyProperties;
 
 @Service
 @RequiredArgsConstructor
 public class GardenInfoServiceImpl implements GardenInfoService {
     private final GardenInfoRepo gardenInfoRepo;
-    private final FileService fileService;
+    private final MediaService mediaService;
     private final CommonService commonService;
 
     @Override
-    public GardenInfoCreateSdo create(GardenInfoCreateSdi req) {
+    public GardenInfoCreateSdo create(GardenInfoCreateSdi req) throws IOException {
         var cover = req.getCover();
         checkUser(req.getUserId());
 
@@ -44,7 +40,7 @@ public class GardenInfoServiceImpl implements GardenInfoService {
         }
 
         var newGardenInfo = copyProperties(req, GardenInfo.class);
-        var coverDto = fileService.uploadFile(cover);
+        var coverDto = mediaService.uploadFile(cover);
         newGardenInfo.setCoverId(coverDto.getId());
 
         gardenInfoRepo.save(newGardenInfo);
@@ -52,18 +48,27 @@ public class GardenInfoServiceImpl implements GardenInfoService {
     }
 
     @Override
-    public GardenInfoUpdateSdo update(GardenInfoUpdateSdi req) {
+    public GardenInfoUpdateSdo update(GardenInfoUpdateSdi req) throws IOException {
+        var gardenInfo = getGardenInfo(req.getId());
+
         checkUser(req.getUserId());
 
-        var gardenInfo = getGardenInfoByUserID(req.getUserId());
+        var img = req.getCover();
+        if (img.isEmpty()) {
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
+        }
+        var cover = mediaService.uploadFile(img);
+
         BeanUtils.copyProperties(req, gardenInfo);
+        gardenInfo.setCoverId(cover.getId());
+
         gardenInfoRepo.save(gardenInfo);
         return GardenInfoUpdateSdo.of(gardenInfo.getId());
     }
 
     @Override
-    public Page<GardenInfoSearchSdo> search(GardenInfoSearchSdi req, PageInfo pageInfo) {
-        return gardenInfoRepo.search(req, pageInfo);
+    public List<GardenInfoSearchSdo> search(GardenInfoSearchSdi req) {
+        return gardenInfoRepo.search(req);
     }
 
     @Override
@@ -83,12 +88,13 @@ public class GardenInfoServiceImpl implements GardenInfoService {
     }
 
     @Override
-    public GardenInfoUpdateCoverSdo uploadCover(GardenInfoUpdateCoverSdi req) {
+    public GardenInfoUpdateCoverSdo uploadCover(GardenInfoUpdateCoverSdi req) throws IOException {
         var cover = req.getCover();
-        checkUser(req.getUserId());
+        checkUser(req.getId());
 
-        var gardenInfo = getGardenInfoByUserID(req.getUserId());
-        var coverDto = fileService.uploadFile(cover);
+        var gardenInfo = getGardenInfo(req.getId());
+        var coverDto = mediaService.uploadFile(cover);
+
         gardenInfo.setCoverId(coverDto.getId());
         return GardenInfoUpdateCoverSdo.of(gardenInfo.getId());
     }
@@ -101,11 +107,11 @@ public class GardenInfoServiceImpl implements GardenInfoService {
 
     private GardenInfo getGardenInfo(Long id) {
         return gardenInfoRepo.findById(id)
-                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER_INFO_ID, id)));
+                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, id)));
     }
 
     private GardenInfo getGardenInfoByUserID(Long userId) {
         return gardenInfoRepo.findByUserId(userId)
-                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER_INFO_USER_ID, userId)));
+                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO, userId)));
     }
 }

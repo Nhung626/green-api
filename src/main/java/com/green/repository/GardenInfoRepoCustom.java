@@ -6,7 +6,9 @@ import com.green.dto.gardeninfo.sdo.GardenInfoSearchSdo;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface GardenInfoRepoCustom {
-    Page<GardenInfoSearchSdo> search(GardenInfoSearchSdi request, PageInfo pageInfo);
+    List<GardenInfoSearchSdo> search(GardenInfoSearchSdi request);
 }

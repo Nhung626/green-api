@@ -157,4 +157,66 @@ public interface LabelKey {
     String LABEL_GARDEN_INFO_COVER_ID = "label.garden-info.cover-id";
     String LABEL_GARDEN_INFO_DESCRIPTION = "label.garden-info.description";
     //END GARDEN INFO
+
+    //BEGIN LAND
+    String LABEL_LAND = "label.land";
+    String LABEL_LAND_ID = "label.land.id";
+    String LABEL_LAND_ADDRESS = "label.land.address";
+    String LABEL_LAND_WIDTH = "label.land.width";
+    String LABEL_LAND_LENGTH = "label.land.length";
+    String LABEL_LAND_NAME = "label.land.name";
+    String LABEL_LAND_IMG = "label.land.img";
+    //END LAND
+
+    //BEGIN TREE
+    String LABEL_TREE = "label.tree";
+    String LABEL_TREE_ID = "label.tree.id";
+    String LABEL_TREE_START_DATE = "label.tree.start-date";
+    String LABEL_TREE_END_DATE = "label.tree.end-date";
+    String LABEL_TREE_NAME = "label.tree.name";
+    String LABEL_TREE_TYPE = "label.tree.type";
+    String LABEL_TREE_IMG = "label.tree.img";
+    //END TREE
+
+    //BEGIN DIARY
+    String LABEL_DIARY = "label.diary";
+    String LABEL_DIARY_ID = "label.diary";
+    String LABEL_DIARY_IMG = "label.diary.img";
+    String LABEL_DIARY_DESCRIPTION = "label.diary.description";
+    //END DIARY
+
+    //BEGIN STATUS
+    String LABEL_STATUS_ID = "label.status.id";
+    String LABEL_STATUS_IMG = "label.status.img";
+    String LABEL_STATUS_CONTENT = "label.status.content";
+    String LABEL_STATUS_PUBLISH_TIME = "label.status.publish-time";
+    String LABEL_STATUS_LIKE = "label.status.like";
+    String LABEL_STATUS_UNLIKE = "label.status.unlike";
+    //END STATUS
+
+    //BEGIN COMMENT
+    String LABEL_COMMENT = "label.comment";
+    String LABEL_COMMENT_ID = "label.comment.id";
+    String LABEL_COMMENTS_POST_ID = "label.comment.post.id";
+    String LABEL_COMMENT_PARENT_ID = "label.comment.parent.id";
+    String LABEL_COMMENT_CONTENT = "label.comment.content";
+    String LABEL_COMMENT_LIKE = "label.comment.like";
+    String LABEL_COMMENT_UNLIKE = "label.comment.unlike";
+    //END COMMENT
+
+    //BEGIN POST
+    String LABEL_POST = "label.post";
+    String LABEL_POST_ID = "label.post.id";
+    String LABEL_POST_AUTH = "label.post.auth";
+    String LABEL_POST_TITlE = "label.post.title";
+    String LABEL_POST_TYPE_TREE = "label.post.type-tree";
+    String LABEL_POST_GENERAL = "label.post.general";
+    String LABEL_POST_CONTENT = "label.post.content";
+    String LABEL_POST_DESCRIPTION = "label.post.description";
+    String LABEL_POST_TAKE_CARE = "label.post.take-care";
+    String LABEL_POST_LIKE = "label.post.like";
+    String LABEL_POST_UNLIKE = "label.post.unlike";
+    String LABEL_POST_SAVE = "label.post.save";
+    String LABEL_POST_UNSAVE = "label.post.un-save";
+    //END POST
 }

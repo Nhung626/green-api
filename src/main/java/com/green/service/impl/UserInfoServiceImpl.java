@@ -6,7 +6,7 @@ import com.green.dto.userinfo.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.UserInfo;
 import com.green.repository.UserInfoRepo;
-import com.green.service.FileService;
+import com.green.service.MediaService;
 import com.green.service.UserInfoService;
 import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +16,16 @@ import org.springframework.stereotype.Service;
 import static com.green.constants.LabelKey.*;
 import static com.green.utils.DataUtil.copyProperties;
 
+import java.io.IOException;
 import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoRepo userInfoRepo;
     private final CommonService commonService;
-    private final FileService fileService;
+    private final MediaService mediaService;
 
-    public UserInfoCreateSdo create(UserInfoCreateSdi req) {
+    public UserInfoCreateSdo create(UserInfoCreateSdi req) throws IOException {
         var avata = req.getAvata();
         checkUser(req.getUserId());
 
@@ -37,7 +38,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
 
         var newUserInfo = copyProperties(req, UserInfo.class);
-        var avataDto = fileService.uploadFile(avata);
+        var avataDto = mediaService.uploadFile(avata);
         newUserInfo.setAvataId(avataDto.getId());
 
         userInfoRepo.save(newUserInfo);
@@ -72,12 +73,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         return copyProperties(userInfo, UserInfoSelfSdo.class);
     }
 
-    public UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req){
+    public UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req) throws IOException {
         var avata = req.getAvata();
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
-        var avataDto = fileService.uploadFile(avata);
+        var avataDto = mediaService.uploadFile(avata);
         userInfo.setAvataId(avataDto.getId());
         return UserAvataUpdateSdo.of(userInfo.getId());
     }
