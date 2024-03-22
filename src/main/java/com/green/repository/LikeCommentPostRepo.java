@@ -1,7 +1,6 @@
 package com.green.repository;
 
-import com.green.model.Like;
-import com.green.model.LikeCmtPost;
+import com.green.model.LikeCommentPost;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
-public interface LikeCommentPostRepo extends JpaRepository<LikeCmtPost, Long> {
-    Optional<LikeCmtPost> findByUserIdAndCommentId(Long userId, Long commentId);
+public interface LikeCommentPostRepo extends JpaRepository<LikeCommentPost, Long> {
+    Optional<LikeCommentPost> findByUserIdAndCommentId(Long userId, Long commentId);
 
     @Transactional
     @Modifying

@@ -1,6 +1,5 @@
 package com.green.repository;
 
-import com.green.model.Like;
 import com.green.model.SavePost;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

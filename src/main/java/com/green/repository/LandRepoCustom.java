@@ -1,6 +1,5 @@
 package com.green.repository;
 
-import com.green.dto.gardeninfo.sdi.GardenInfoSearchSdi;
 import com.green.dto.land.sdi.LandSearchSdi;
 import com.green.dto.land.sdo.LandSearchSdo;
 

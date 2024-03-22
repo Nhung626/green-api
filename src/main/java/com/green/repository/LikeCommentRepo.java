@@ -1,7 +1,7 @@
 package com.green.repository;
 
 import com.green.model.Like;
-import com.green.model.LikeCmt;
+import com.green.model.LikeComment;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface LikeCommentRepo extends JpaRepository<LikeCmt, Long> {
+public interface LikeCommentRepo extends JpaRepository<LikeComment, Long> {
     Optional<Like> findByUserIdAndCommentId(Long userId, Long commentId);
 
     @Transactional

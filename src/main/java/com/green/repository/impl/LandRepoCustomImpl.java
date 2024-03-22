@@ -1,6 +1,5 @@
 package com.green.repository.impl;
 
-import com.green.dto.gardeninfo.sdo.GardenInfoSearchSdo;
 import com.green.dto.land.sdi.LandSearchSdi;
 import com.green.dto.land.sdo.LandSearchSdo;
 import com.green.repository.LandRepoCustom;
@@ -30,7 +29,7 @@ public class LandRepoCustomImpl implements LandRepoCustom {
             queryParams.put("userId", userId);
         }
 
-        String sqlSort = "order by id asc ";
+        query.append("order by id asc ");
 
         return queryRepo.queryList(query.toString(),
                 queryParams, LandSearchSdo.class

@@ -109,9 +109,4 @@ public class GardenInfoServiceImpl implements GardenInfoService {
         return gardenInfoRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, id)));
     }
-
-    private GardenInfo getGardenInfoByUserID(Long userId) {
-        return gardenInfoRepo.findByUserId(userId)
-                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO, userId)));
-    }
 }

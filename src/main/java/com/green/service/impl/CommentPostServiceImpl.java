@@ -6,7 +6,7 @@ import com.green.dto.commentpost.sdo.*;
 import com.green.dto.common.pagination.PageInfo;
 import com.green.exception.AppException;
 import com.green.model.CommentPost;
-import com.green.model.LikeCmtPost;
+import com.green.model.LikeCommentPost;
 import com.green.repository.CommentPostRepo;
 import com.green.repository.LikeCommentPostRepo;
 import com.green.service.CommentPostService;
@@ -29,7 +29,6 @@ public class CommentPostServiceImpl implements CommentPostService {
     private final CommentPostRepo commentPostRepo;
     private final LikeCommentPostRepo likeCommentPostRepo;
     private final CommonService commonService;
-    private final MediaService mediaService;
 
     @Override
     public CommentPostCreateSdo create(CommentPostCreateSdi req) {
@@ -91,12 +90,12 @@ public class CommentPostServiceImpl implements CommentPostService {
         var userId = req.getUserId();
         var commentId = req.getCommentId();
 
-        Optional<LikeCmtPost> existingLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeCommentPost> existingLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
 
-        var newLike = new LikeCmtPost();
+        var newLike = new LikeCommentPost();
         newLike.setUserId(userId);
         newLike.setCommentPostId(commentId);
 
@@ -109,7 +108,7 @@ public class CommentPostServiceImpl implements CommentPostService {
         var userId = req.getUserId();
         var commentId = req.getCommentId();
 
-        Optional<LikeCmtPost> existingUnLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeCommentPost> existingUnLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
 
         if (existingUnLike.isPresent()) {
             likeCommentPostRepo.deleteLike(userId, commentId);

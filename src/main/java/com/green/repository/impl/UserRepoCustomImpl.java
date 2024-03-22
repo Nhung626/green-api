@@ -22,10 +22,6 @@ public class UserRepoCustomImpl implements UserRepoCustom {
         var email = request.getEmail();
         Map<String, Object> queryParams = new HashMap<>();
 
-        String sqlCountAll = "select count(1) ";
-
-        String sqlGetData = "";
-
         StringBuilder query = new StringBuilder("select id, email, status, created_at, created_by, updated_at, updated_by " +
                 "from user where status <> 2 ");
         if (!isNullObject(email)) {
@@ -33,7 +29,7 @@ public class UserRepoCustomImpl implements UserRepoCustom {
             queryParams.put("email", toLikeConditional(email));
         }
 
-        String sqlSort = "order by id asc ";
+        query.append("order by id asc ");
 
         return queryRepo.queryList(query.toString(),
                 queryParams, UserSearchSdo.class

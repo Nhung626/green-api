@@ -2,7 +2,6 @@ package com.green.dto.comment.sdi;
 
 import com.green.utils.valid.Validation;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import static com.green.constants.LabelKey.*;
 

@@ -1,9 +1,7 @@
 package com.green.service;
 
-import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 

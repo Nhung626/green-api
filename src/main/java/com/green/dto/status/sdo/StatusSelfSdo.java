@@ -1,6 +1,5 @@
 package com.green.dto.status.sdo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;

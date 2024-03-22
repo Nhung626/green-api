@@ -1,8 +1,6 @@
 package com.green.repository;
 
-import com.green.dto.status.sdo.StatusSelfSdo;
 import com.green.model.Status;
-import com.green.model.Tree;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

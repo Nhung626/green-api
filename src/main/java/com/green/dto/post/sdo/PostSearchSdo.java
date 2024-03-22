@@ -1,7 +1,6 @@
 package com.green.dto.post.sdo;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

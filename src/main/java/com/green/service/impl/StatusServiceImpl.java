@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +43,7 @@ public class StatusServiceImpl implements StatusService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }).collect(Collectors.toList())));;
+        }).collect(Collectors.toList())));
         statusRepo.save(status);
 
         return StatusCreateSdo.of(status.getId());

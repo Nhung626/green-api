@@ -1,13 +1,11 @@
 package com.green.controller;
 
 import com.green.dto.common.ApiResponse;
-import com.green.dto.common.pagination.PageInfo;
 import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
 import com.green.service.GardenInfoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;

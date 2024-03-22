@@ -36,7 +36,6 @@ public class MediaServiceImpl implements MediaService {
     @Value("${media.img_path}")
     private String imgPath;
 
-//    private final MinIoService minIoService;
 
     private Media getFile(Long id) {
         return mediaRepo

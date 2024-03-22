@@ -1,6 +1,5 @@
 package com.green.dto.post.sdi;
 
-import com.green.model.Media;
 import com.green.utils.valid.Validation;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

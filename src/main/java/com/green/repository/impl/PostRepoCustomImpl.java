@@ -4,7 +4,6 @@ import com.green.dto.post.sdi.PostSearchSdi;
 import com.green.dto.post.sdi.PostSelfSdi;
 import com.green.dto.post.sdo.PostSearchSdo;
 import com.green.dto.post.sdo.PostSelfSdo;
-import com.green.dto.status.sdo.StatusSelfSdo;
 import com.green.repository.PostRepoCustom;
 import com.green.repository.common.QueryRepo;
 import lombok.RequiredArgsConstructor;

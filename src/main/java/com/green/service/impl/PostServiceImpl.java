@@ -13,7 +13,6 @@ import com.green.repository.PostRepo;
 import com.green.repository.SavePostRepo;
 import com.green.service.MediaService;
 import com.green.service.PostService;
-import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

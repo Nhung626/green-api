@@ -1,7 +1,5 @@
 package com.green.repository.impl;
 
-import com.green.dto.comment.sdi.CommentSearchSdi;
-import com.green.dto.comment.sdo.CommentSearchSdo;
 import com.green.dto.commentpost.sdi.CommentPostSearchSdi;
 import com.green.dto.commentpost.sdo.CommentPostSearchSdo;
 import com.green.dto.common.pagination.PageInfo;

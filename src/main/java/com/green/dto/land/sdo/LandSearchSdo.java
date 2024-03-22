@@ -1,9 +1,5 @@
 package com.green.dto.land.sdo;
 
-import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
-//@Data
 public class LandSearchSdo {
     private Long id;
 
@@ -18,7 +14,4 @@ public class LandSearchSdo {
     private Long img_id;
 
     private Long userId;
-
-    private Long gardenId;
-
 }

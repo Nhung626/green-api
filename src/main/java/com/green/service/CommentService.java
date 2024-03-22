@@ -13,10 +13,12 @@ public interface CommentService {
     CommentUpdateSdo update(CommentUpdateSdi req);
 
     CommentDeleteSdo delete(CommentDeleteSdi req);
+
     Page<CommentSearchSdo> search(CommentSearchSdi req, PageInfo pageInfo);
 
     CommentSelfSdo self(CommentSelfSdi req);
-    CommentLikeSdo like(CommentLikeSdi req);
-    CommentUnlikeSdo unLike(CommentUnlikeSdi req);
 
+    CommentLikeSdo like(CommentLikeSdi req);
+
+    CommentUnlikeSdo unLike(CommentUnlikeSdi req);
 }

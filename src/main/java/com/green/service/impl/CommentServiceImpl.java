@@ -7,17 +7,15 @@ import com.green.dto.common.pagination.PageInfo;
 import com.green.exception.AppException;
 import com.green.model.Comment;
 import com.green.model.Like;
-import com.green.model.LikeCmt;
+import com.green.model.LikeComment;
 import com.green.repository.CommentRepo;
 import com.green.repository.LikeCommentRepo;
 import com.green.service.CommentService;
-import com.green.service.MediaService;
 import com.green.service.common.CommonService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +28,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepo commentRepo;
     private final LikeCommentRepo likeCommentRepo;
     private final CommonService commonService;
-    private final MediaService mediaService;
     
     @Override
     public CommentCreateSdo create(CommentCreateSdi req) {
@@ -94,7 +91,7 @@ public class CommentServiceImpl implements CommentService {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
 
-        var newLike = new LikeCmt();
+        var newLike = new LikeComment();
         newLike.setUserId(req.getUserId());
         newLike.setCommentId(req.getCommentId());
 

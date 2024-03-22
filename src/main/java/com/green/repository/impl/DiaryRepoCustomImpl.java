@@ -36,7 +36,7 @@ public class DiaryRepoCustomImpl implements DiaryRepoCustom {
             queryParams.put("treeId", treeId);
         }
 
-        String sqlSort = "order by id asc ";
+        query.append("order by id asc ");
 
         return queryRepo.queryList(query.toString(),
                 queryParams, DiarySearchSdo.class

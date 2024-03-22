@@ -13,11 +13,11 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "like_comment_post")
-public class LikeCmtPost extends AbstractAudit{
+@Table(name = "like_comment")
+public class LikeComment extends AbstractAudit{
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "comment_post_id")
-    private Long commentPostId;
+    @Column(name = "comment_id")
+    private Long commentId;
 }

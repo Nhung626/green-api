@@ -12,7 +12,7 @@ public class CommentPostUpdateSdi {
     @Validation(label = LABEL_COMMENT_PARENT_ID, required = true)
     private Long statusId;
 
-    @Validation(label = LABEL_COMMENT_USER_ID, required = true)
+    @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
 
     @Validation(label = LABEL_COMMENT_PARENT_ID, required = true)

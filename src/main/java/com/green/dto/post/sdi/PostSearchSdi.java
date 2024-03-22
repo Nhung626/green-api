@@ -3,7 +3,6 @@ package com.green.dto.post.sdi;
 import com.green.utils.valid.Validation;
 import lombok.Data;
 
-import static com.green.constants.LabelKey.LABEL_POST_ID;
 import static com.green.constants.LabelKey.LABEL_POST_TITlE;
 
 @Data

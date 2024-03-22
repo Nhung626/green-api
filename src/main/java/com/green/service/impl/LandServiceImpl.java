@@ -113,8 +113,4 @@ public class LandServiceImpl implements LandService {
         return landRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_LAND_ID, id)));
     }
-
-    private Land getLandByUserID(Long userId) {
-        return landRepo.findByUserId(userId).orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER_ID, userId)));
-    }
 }

@@ -36,7 +36,7 @@ public class GardenInfoRepoCustomImpl implements GardenInfoRepoCustom {
             queryParams.put("name", name);
         }
 
-        String sqlSort = "order by id asc ";
+        query.append("order by id asc ");
 
         return queryRepo.queryList(query.toString(),
                 queryParams, GardenInfoSearchSdo.class

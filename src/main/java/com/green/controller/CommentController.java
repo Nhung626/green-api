@@ -7,7 +7,6 @@ import com.green.dto.common.pagination.PageInfo;
 import com.green.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
