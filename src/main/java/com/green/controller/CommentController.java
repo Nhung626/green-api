@@ -63,4 +63,20 @@ public class CommentController {
         var rs = commentService.delete(req);
         return new ApiResponse(rs);
     }
+
+    @PostMapping("/like")
+    public ApiResponse<CommentLikeSdo> like(
+            @RequestBody @Valid CommentLikeSdi req
+    ){
+        var rs = commentService.like(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unlike")
+    public ApiResponse<CommentUnlikeSdo> like(
+            @RequestBody @Valid CommentUnlikeSdi req
+    ){
+        var rs = commentService.unlike(req);
+        return new ApiResponse<>(rs);
+    }
 }

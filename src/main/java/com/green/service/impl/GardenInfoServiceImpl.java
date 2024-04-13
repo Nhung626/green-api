@@ -6,8 +6,8 @@ import com.green.dto.gardeninfo.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.GardenInfo;
 import com.green.repository.GardenInfoRepo;
-import com.green.service.MediaService;
 import com.green.service.GardenInfoService;
+import com.green.service.MediaService;
 import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -33,15 +33,14 @@ public class GardenInfoServiceImpl implements GardenInfoService {
 
         var gardenInfoOptional = gardenInfoRepo.findByUserId(req.getUserId());
         if (gardenInfoOptional.isPresent())
-            throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
-
-        if (cover.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
+            throw new AppException(ERROR_ALREADY_EXIST, LABEL_GARDEN_INFO);
 
         var newGardenInfo = copyProperties(req, GardenInfo.class);
-        var coverDto = mediaService.uploadFile(cover);
-        newGardenInfo.setCoverId(coverDto.getId());
+
+        if (!cover.isEmpty()) {
+            var coverDto = mediaService.uploadFile(cover);
+            newGardenInfo.setCoverId(coverDto.getId());
+        }
 
         gardenInfoRepo.save(newGardenInfo);
         return GardenInfoCreateSdo.of(newGardenInfo.getId());
@@ -50,17 +49,15 @@ public class GardenInfoServiceImpl implements GardenInfoService {
     @Override
     public GardenInfoUpdateSdo update(GardenInfoUpdateSdi req) throws IOException {
         var gardenInfo = getGardenInfo(req.getId());
-
         checkUser(req.getUserId());
 
-        var img = req.getCover();
-        if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
-        var cover = mediaService.uploadFile(img);
-
         BeanUtils.copyProperties(req, gardenInfo);
-        gardenInfo.setCoverId(cover.getId());
+
+        var img = req.getCover();
+        if (!img.isEmpty()) {
+            var cover = mediaService.uploadFile(img);
+            gardenInfo.setCoverId(cover.getId());
+        }
 
         gardenInfoRepo.save(gardenInfo);
         return GardenInfoUpdateSdo.of(gardenInfo.getId());

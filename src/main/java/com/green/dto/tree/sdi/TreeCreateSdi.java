@@ -12,9 +12,6 @@ public class TreeCreateSdi {
     @Validation(label = LABEL_TREE_START_DATE, required = true)
     private LocalDate startDate;
 
-    @Validation(label = LABEL_TREE_END_DATE)
-    private LocalDate endDate;
-
     @Validation(label = LABEL_TREE_NAME)
     private String name;
 
@@ -27,6 +24,6 @@ public class TreeCreateSdi {
     @Validation(label = LABEL_LAND_ID)
     private  Long landId;
 
-    @Validation(label = LABEL_GARDEN_INFO_ID)
-    private Long gardenId;
+    @Validation(label = LABEL_USER_ID)
+    private Long userId;
 }

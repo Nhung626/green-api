@@ -13,5 +13,5 @@ public interface CommentPostService {
     Page<CommentPostSearchSdo> search(CommentPostSearchSdi req, PageInfo pageInfo);
     CommentPostSelfSdo self(CommentPostSelfSdi req);
     CommentPostLikeSdo like(CommentPostLikeSdi req);
-    CommentPostUnlikeSdo unLike(CommentPostUnlikeSdi req);
+    CommentPostUnlikeSdo unlike(CommentPostUnlikeSdi req);
 }

@@ -12,9 +12,6 @@ public class TreeUpdateSdi {
     @Validation(label= LABEL_TREE_ID, required = true)
     private Long id;
 
-    @Validation(label = LABEL_TREE_START_DATE, required = true)
-    private LocalDate startDate;
-
     @Validation(label = LABEL_TREE_END_DATE)
     private LocalDate endDate;
 
@@ -31,5 +28,5 @@ public class TreeUpdateSdi {
     private  Long landId;
 
     @Validation(label = LABEL_GARDEN_INFO_ID)
-    private Long gardenId;
+    private Long userId;
 }

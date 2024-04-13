@@ -21,7 +21,7 @@ public class Status extends AbstractAudit{
     @Column(name = "user_id")
     private Long userId;
 
-    @OneToMany(mappedBy = "media")
+    @OneToMany
     private List<Media> medias;
 
     @Column(name = "content")

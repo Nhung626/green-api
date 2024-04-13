@@ -18,7 +18,6 @@ public interface SavePostRepo extends JpaRepository<SavePost, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM save_post WHERE user_id = :userId AND status_id = :statusId", nativeQuery = true)
-    void deleteLike(@Param("userId") Long userId, @Param("postId") Long statusId);
-
+    @Query(value = "DELETE FROM save_post WHERE user_id = :userId AND post_id = :postId", nativeQuery = true)
+    void deleteSave(@Param("userId") Long userId, @Param("postId") Long postId);
 }

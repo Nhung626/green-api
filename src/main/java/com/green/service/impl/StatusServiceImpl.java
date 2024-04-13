@@ -91,7 +91,7 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public StatusUnlikeSdo unLike(StatusUnlikeSdi req) {
+    public StatusUnlikeSdo unlike(StatusUnlikeSdi req) {
         Optional<Like> existingUnLike = likeRepo.findByUserIdAndStatusId(req.getUserId(), req.getStatusId());
         if (existingUnLike.isPresent()) {
             likeRepo.deleteLike(req.getUserId(), req.getUserId());

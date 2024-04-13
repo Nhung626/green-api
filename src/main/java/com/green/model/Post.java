@@ -40,6 +40,6 @@ public class Post extends AbstractAudit {
     @Column(name = "take_care")
     private String takeCare;
 
-    @OneToMany(mappedBy = "media")
+    @OneToMany
     private List<Media> medias;
 }

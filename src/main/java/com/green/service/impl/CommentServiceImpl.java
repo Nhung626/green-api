@@ -100,7 +100,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentUnlikeSdo unLike(CommentUnlikeSdi req) {
+    public CommentUnlikeSdo unlike(CommentUnlikeSdi req) {
         Optional<Like> existingUnLike = likeCommentRepo.findByUserIdAndCommentId(req.getUserId(), req.getCommentId());
 
         if (existingUnLike.isPresent()) {

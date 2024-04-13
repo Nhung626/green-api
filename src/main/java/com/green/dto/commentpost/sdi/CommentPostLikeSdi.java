@@ -9,7 +9,7 @@ import static com.green.constants.LabelKey.LABEL_USER_ID;
 @Data
 public class CommentPostLikeSdi {
     @Validation(label = LABEL_COMMENT_ID, required = true)
-    private Long commentId;
+    private Long commentPostId;
 
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;

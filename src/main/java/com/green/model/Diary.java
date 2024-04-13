@@ -22,7 +22,7 @@ public class Diary extends AbstractAudit{
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "media")
+    @OneToMany
     private List<Media> medias;
 
     @Column(name = "tree_id")

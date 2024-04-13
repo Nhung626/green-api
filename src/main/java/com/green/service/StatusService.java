@@ -19,6 +19,6 @@ public interface StatusService {
 
     StatusLikeSdo like(StatusLikeSdi req);
 
-    StatusUnlikeSdo unLike(StatusUnlikeSdi req);
+    StatusUnlikeSdo unlike(StatusUnlikeSdi req);
 
 }
