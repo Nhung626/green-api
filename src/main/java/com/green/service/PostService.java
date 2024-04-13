@@ -19,7 +19,7 @@ public interface PostService {
 
     PostLikeSdo like(PostLikeSdi req);
 
-    PostUnlikeSdo unLike(PostUnlikeSdi req);
+    PostUnlikeSdo unlike(PostUnlikeSdi req);
 
     PostSaveSdo save(PostSaveSdi req);
 

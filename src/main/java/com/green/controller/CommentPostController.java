@@ -1,5 +1,9 @@
 package com.green.controller;
 
+import com.green.dto.comment.sdi.CommentLikeSdi;
+import com.green.dto.comment.sdi.CommentUnlikeSdi;
+import com.green.dto.comment.sdo.CommentLikeSdo;
+import com.green.dto.comment.sdo.CommentUnlikeSdo;
 import com.green.dto.commentpost.sdi.*;
 import com.green.dto.commentpost.sdo.*;
 import com.green.dto.common.ApiResponse;
@@ -61,5 +65,21 @@ public class CommentPostController {
     ) {
         var rs = commentPostService.delete(req);
         return new ApiResponse(rs);
+    }
+
+    @PostMapping("/like")
+    public ApiResponse<CommentPostLikeSdo> like(
+            @RequestBody @Valid CommentPostLikeSdi req
+    ){
+        var rs = commentPostService.like(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unlike")
+    public ApiResponse<CommentPostUnlikeSdo> like(
+            @RequestBody @Valid CommentPostUnlikeSdi req
+    ){
+        var rs = commentPostService.unlike(req);
+        return new ApiResponse<>(rs);
     }
 }

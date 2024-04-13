@@ -7,10 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 import static com.green.constants.LabelKey.*;
-import static com.green.constants.LabelKey.LABEL_LAND_ID;
 
 @Data
 public class DiaryUpdateSdi {
+    @Validation(label = LABEL_USER_ID, required = true)
+    private Long userId;
+    
     @Validation(label = LABEL_DIARY_ID, required = true)
     private Long id;
 
@@ -22,7 +24,4 @@ public class DiaryUpdateSdi {
 
     @Validation(label = LABEL_TREE_ID, required = true)
     private Long treeId;
-
-    @Validation(label = LABEL_LAND_ID, required = true)
-    private Long landId;
 }

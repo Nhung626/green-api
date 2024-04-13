@@ -21,14 +21,10 @@ public class LandUpdateSdi {
 
     @Validation(label = LABEL_LAND_LENGTH, required = true)
     private float length;
-
-    @Validation(label = LABEL_LAND, required = true)
-    private MultipartFile img;
+    
+    @Validation(label = LABEL_LAND_ID,required = true)
+    private MultipartFile image;
 
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
-
-    @Validation(label = LABEL_GARDEN_INFO_ID, required = true)
-    private Long gardenId;
-
 }

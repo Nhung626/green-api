@@ -110,7 +110,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostUnlikeSdo unLike(PostUnlikeSdi req) {
+    public PostUnlikeSdo unlike(PostUnlikeSdi req) {
         var userId = req.getUserId();
         var postId = req.getPostId();
 
@@ -147,7 +147,7 @@ public class PostServiceImpl implements PostService {
 
         Optional<SavePost> existingUnSave = savePostRepo.findByUserIdAndPostId(userId, postId);
         if (existingUnSave.isPresent()) {
-            savePostRepo.deleteLike(userId, postId);
+            savePostRepo.deleteSave(userId, postId);
             return PostUnSaveSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_UNSAVE));

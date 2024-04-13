@@ -88,30 +88,30 @@ public class CommentPostServiceImpl implements CommentPostService {
     @Override
     public CommentPostLikeSdo like(CommentPostLikeSdi req) {
         var userId = req.getUserId();
-        var commentId = req.getCommentId();
+        var commentPostId = req.getCommentPostId();
 
-        Optional<LikeCommentPost> existingLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeCommentPost> existingLike = likeCommentPostRepo.findByUserIdAndCommentPostId(userId, commentPostId);
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
 
         var newLike = new LikeCommentPost();
         newLike.setUserId(userId);
-        newLike.setCommentPostId(commentId);
+        newLike.setCommentPostId(commentPostId);
 
         likeCommentPostRepo.save(newLike);
         return CommentPostLikeSdo.of(true);
     }
 
     @Override
-    public CommentPostUnlikeSdo unLike(CommentPostUnlikeSdi req) {
+    public CommentPostUnlikeSdo unlike(CommentPostUnlikeSdi req) {
         var userId = req.getUserId();
-        var commentId = req.getCommentId();
+        var commentPostId = req.getCommentPostId();
 
-        Optional<LikeCommentPost> existingUnLike = likeCommentPostRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeCommentPost> existingUnLike = likeCommentPostRepo.findByUserIdAndCommentPostId(userId, commentPostId);
 
         if (existingUnLike.isPresent()) {
-            likeCommentPostRepo.deleteLike(userId, commentId);
+            likeCommentPostRepo.deleteLike(userId, commentPostId);
             return CommentPostUnlikeSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_UNLIKE));

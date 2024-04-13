@@ -25,6 +25,4 @@ public class LandCreateSdi{
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
 
-    @Validation(label = LABEL_GARDEN_INFO_ID, required = true)
-    private Long gardenId;
 }

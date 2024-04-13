@@ -37,7 +37,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     //Đăng ký tài khoản người dùng
     public ApiResponse<UserRegisterSdo> signup(
             @RequestBody @Valid UserRegisterSdi req

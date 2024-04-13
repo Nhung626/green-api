@@ -20,5 +20,5 @@ public interface CommentService {
 
     CommentLikeSdo like(CommentLikeSdi req);
 
-    CommentUnlikeSdo unLike(CommentUnlikeSdi req);
+    CommentUnlikeSdo unlike(CommentUnlikeSdi req);
 }

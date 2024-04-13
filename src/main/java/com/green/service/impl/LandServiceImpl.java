@@ -4,7 +4,9 @@ import com.green.constants.Const;
 import com.green.dto.land.sdi.*;
 import com.green.dto.land.sdo.*;
 import com.green.exception.AppException;
+import com.green.model.GardenInfo;
 import com.green.model.Land;
+import com.green.repository.GardenInfoRepo;
 import com.green.repository.LandRepo;
 import com.green.service.LandService;
 import com.green.service.MediaService;
@@ -23,6 +25,7 @@ import static com.green.utils.DataUtil.copyProperties;
 @RequiredArgsConstructor
 public class LandServiceImpl implements LandService {
     private final LandRepo landRepo;
+    private final GardenInfoRepo gardenInfoRepo;
     private final MediaService mediaService;
     private final CommonService commonService;
 
@@ -30,18 +33,16 @@ public class LandServiceImpl implements LandService {
     public LandCreateSdo create(LandCreateSdi req) throws IOException {
         var img = req.getImg();
         checkUser(req.getUserId());
-
-        var landOptional = landRepo.findByUserId(req.getUserId());
-        if (landOptional.isPresent())
-            throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
-
-        if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
+        GardenInfo gardenInfo = gardenInfoRepo.findByUserId(req.getUserId())
+                .orElseThrow(() -> new AppException(ERROR_ALREADY_EXIST, LABEL_USER_INFO));
 
         var newLand = copyProperties(req, Land.class);
-        var imgDto = mediaService.uploadFile(img);
-        newLand.setImgId(imgDto.getId());
+        newLand.setGardenId(gardenInfo.getId());
+
+        if (!img.isEmpty()) {
+            var imgDto = mediaService.uploadFile(img);
+            newLand.setImgId(imgDto.getId());
+        }
 
         landRepo.save(newLand);
         return LandCreateSdo.of(newLand.getId());
@@ -51,15 +52,17 @@ public class LandServiceImpl implements LandService {
     public LandUpdateSdo update(LandUpdateSdi req) throws IOException {
         Land land = getLand(req.getId());
         checkUser(req.getUserId());
+        GardenInfo gardenInfo = gardenInfoRepo.findByUserId(req.getUserId())
+                .orElseThrow(() -> new AppException(ERROR_ALREADY_EXIST, LABEL_USER_INFO));
 
-        var img = req.getImg();
-        if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
 
         BeanUtils.copyProperties(req, land);
-        var imgDto = mediaService.uploadFile(img);
-        land.setImgId(imgDto.getId());
+
+        var img = req.getImg();
+        if (!img.isEmpty()) {
+            var imgDto = mediaService.uploadFile(img);
+            land.setImgId(imgDto.getId());
+        }
 
         landRepo.save(land);
         return LandUpdateSdo.of(land.getId());

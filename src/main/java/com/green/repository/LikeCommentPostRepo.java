@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface LikeCommentPostRepo extends JpaRepository<LikeCommentPost, Long> {
-    Optional<LikeCommentPost> findByUserIdAndCommentId(Long userId, Long commentId);
+    Optional<LikeCommentPost> findByUserIdAndCommentPostId(Long userId, Long commentPostId);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM like_comment_post WHERE user_id = :userId AND comment_id = :commentId", nativeQuery = true)
-    void deleteLike(@Param("userId") Long userId, @Param("commentId") Long commentId);
+    @Query(value = "DELETE FROM like_comment_post WHERE user_id = :userId AND comment_post_id = :commentPostId", nativeQuery = true)
+    void deleteLike(@Param("userId") Long userId, @Param("commentPostId") Long commentId);
 }

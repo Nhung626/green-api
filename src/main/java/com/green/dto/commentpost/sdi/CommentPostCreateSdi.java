@@ -7,6 +7,7 @@ import static com.green.constants.LabelKey.*;
 
 @Data
 public class CommentPostCreateSdi {
+    
     @Validation(label = LABEL_POST_ID, required = true)
     private Long postId;
 
@@ -16,4 +17,6 @@ public class CommentPostCreateSdi {
     @Validation(label = LABEL_COMMENT_CONTENT, required = true)
     private String content;
 
+    @Validation(label = LABEL_USER_ID, required = true)
+    private Long userId;
 }

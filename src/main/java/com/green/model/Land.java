@@ -15,11 +15,8 @@ public class Land  extends AbstractAudit{
     @Column(name = "address")
     private String address;
 
-    @Column(name = "width")
-    private float width;
-
-    @Column(name = "length")
-    private float length;
+    @Column(name = "area")
+    private float area;
 
     @Column(name = "img_id")
     private Long imgId;

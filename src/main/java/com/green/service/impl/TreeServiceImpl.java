@@ -8,6 +8,7 @@ import com.green.model.Tree;
 import com.green.repository.TreeRepo;
 import com.green.service.MediaService;
 import com.green.service.TreeService;
+import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -23,18 +24,19 @@ import static com.green.utils.DataUtil.copyProperties;
 public class TreeServiceImpl implements TreeService {
     private final TreeRepo treeRepo;
     private final MediaService mediaService;
+    private final CommonService commonService;
 
     @Override
     public TreeCreateSdo create(TreeCreateSdi req) throws IOException {
         var img = req.getImg();
 
-        if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
-
+        checkUser(req.getUserId());
         var newTree = copyProperties(req, Tree.class);
-        var imgDto = mediaService.uploadFile(img);
-        newTree.setImgId(imgDto.getId());
+
+        if (!img.isEmpty()) {
+            var imgDto = mediaService.uploadFile(img);
+            newTree.setImgId(imgDto.getId());
+        }
 
         treeRepo.save(newTree);
         return TreeCreateSdo.of(newTree.getId());
@@ -75,6 +77,12 @@ public class TreeServiceImpl implements TreeService {
     public TreeSelfSdo self(TreeSelfSdi req) {
         var tree = getTree(req.getId());
         return copyProperties(tree, TreeSelfSdo.class);
+    }
+
+    private void checkUser(Long userId) {
+        if (!commonService.getIdLogin().equals(userId)) {
+            throw new AppException(ERROR_AUTH_YOU_ARE_NOT_ACCESS_TO_THIS_CLIENT, LABEL_USER_INFO);
+        }
     }
 
     private Tree getTree(Long id) {

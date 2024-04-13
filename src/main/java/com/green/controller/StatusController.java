@@ -60,4 +60,20 @@ public class StatusController {
         var rs = statusService.delete(req);
         return new ApiResponse(rs);
     }
+
+    @PostMapping("/like")
+    public ApiResponse<StatusLikeSdo> like(
+            @RequestBody @Valid StatusLikeSdi req
+    ){
+        var rs = statusService.like(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unlike")
+    public ApiResponse<StatusUnlikeSdo> like(
+            @RequestBody @Valid StatusUnlikeSdi req
+    ){
+        var rs = statusService.unlike(req);
+        return new ApiResponse<>(rs);
+    }
 }

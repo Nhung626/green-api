@@ -64,4 +64,20 @@ public class PostController {
         var rs = postService.delete(req);
         return new ApiResponse(rs);
     }
+
+    @PostMapping("/like")
+    public ApiResponse<PostLikeSdo> like(
+            @RequestBody @Valid PostLikeSdi req
+    ){
+        var rs = postService.like(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unlike")
+    public ApiResponse<PostUnlikeSdo> like(
+            @RequestBody @Valid PostUnlikeSdi req
+    ){
+        var rs = postService.unlike(req);
+        return new ApiResponse<>(rs);
+    }
 }
