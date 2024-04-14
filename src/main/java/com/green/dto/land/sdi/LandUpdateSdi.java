@@ -16,11 +16,8 @@ public class LandUpdateSdi {
     @Validation(label =LABEL_LAND_ADDRESS, required = true)
     private String address;
 
-    @Validation(label = LABEL_LAND_WIDTH, required = true)
-    private float width;
-
-    @Validation(label = LABEL_LAND_LENGTH, required = true)
-    private float length;
+    @Validation(label = LABEL_LAND_AREA, required = true)
+    private float area;
     
     @Validation(label = LABEL_LAND_ID,required = true)
     private MultipartFile image;

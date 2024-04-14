@@ -132,11 +132,11 @@ public class PostServiceImpl implements PostService {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_SAVE));
         }
 
-        var newSave = new LikePost();
+        var newSave = new SavePost();
         newSave.setUserId(userId);
         newSave.setUserId(postId);
 
-        likePostRepo.save(newSave);
+        savePostRepo.save(newSave);
         return PostSaveSdo.of(true);
     }
 

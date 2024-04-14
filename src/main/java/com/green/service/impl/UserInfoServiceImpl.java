@@ -12,12 +12,14 @@ import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 import static com.green.constants.LabelKey.*;
 import static com.green.utils.DataUtil.copyProperties;
 
-import java.io.IOException;
-import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserInfoServiceImpl implements UserInfoService {
@@ -33,22 +35,27 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfoOptional.isPresent())
             throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
 
-        if (avata.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
-        }
-
         var newUserInfo = copyProperties(req, UserInfo.class);
-        var avataDto = mediaService.uploadFile(avata);
-        newUserInfo.setAvataId(avataDto.getId());
+        if (!avata.isEmpty()) {
+            var avataDto = mediaService.uploadFile(avata);
+            newUserInfo.setAvataId(avataDto.getId());
+        }
 
         userInfoRepo.save(newUserInfo);
         return UserInfoCreateSdo.of(newUserInfo.getId());
     }
 
-    public UserInfoUpdateSdo update(UserInfoUpdateSdi req) {
+    public UserInfoUpdateSdo update(UserInfoUpdateSdi req) throws IOException {
+        MultipartFile avata = req.getAvata();
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
+
+        if (!avata.isEmpty()) {
+            var avataDto = mediaService.uploadFile(avata);
+            userInfo.setAvataId(avataDto.getId());
+        }
+
         BeanUtils.copyProperties(req, userInfo);
         userInfoRepo.save(userInfo);
         return UserInfoUpdateSdo.of(userInfo.getId());
@@ -78,8 +85,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
+        if (avata.isEmpty()) {
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, LABEL_USER_INFO_AVATA);
+        }
+
         var avataDto = mediaService.uploadFile(avata);
         userInfo.setAvataId(avataDto.getId());
+
+        userInfoRepo.save(userInfo);
         return UserAvataUpdateSdo.of(userInfo.getId());
     }
 

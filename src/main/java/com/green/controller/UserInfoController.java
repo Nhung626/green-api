@@ -47,11 +47,11 @@ public class UserInfoController {
     }
 
 
-    @PostMapping("/update")
+    @PostMapping(path = "/update", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
 //  ("[Cập nhập]")
     public ApiResponse<UserInfoUpdateSdo> update(
             UserInfoUpdateSdi req
-    ) {
+    ) throws IOException {
         var rs = userInfoService.update(req);
         return new ApiResponse(rs);
     }

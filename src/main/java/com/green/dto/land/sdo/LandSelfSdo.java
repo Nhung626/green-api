@@ -1,7 +1,9 @@
 package com.green.dto.land.sdo;
 
+import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+@Data
 public class LandSelfSdo {
     private Long id;
 
@@ -9,11 +11,9 @@ public class LandSelfSdo {
 
     private String address;
 
-    private float width;
+    private float area;
 
-    private float length;
-
-    private MultipartFile img;
+    private Long imgId;
 
     private Long userId;
 

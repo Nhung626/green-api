@@ -162,7 +162,7 @@ public interface LabelKey {
     String LABEL_LAND = "label.land";
     String LABEL_LAND_ID = "label.land.id";
     String LABEL_LAND_ADDRESS = "label.land.address";
-    String LABEL_LAND_WIDTH = "label.land.width";
+    String LABEL_LAND_AREA = "label.land.area";
     String LABEL_LAND_LENGTH = "label.land.length";
     String LABEL_LAND_NAME = "label.land.name";
     String LABEL_LAND_IMG = "label.land.img";
