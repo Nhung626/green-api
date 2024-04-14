@@ -8,6 +8,4 @@ import static com.green.constants.LabelKey.LABEL_USER_ID;
 public class UserInfoSearchSdi {
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
-
-
 }

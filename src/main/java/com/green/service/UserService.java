@@ -19,4 +19,8 @@ public interface UserService {
     UserUpdateSdo update(UserUpdateSdi req);
 
     UserDeleteSdo delete(UserDeleteSdi req);
+
+    UserFollowSdo follow(UserFollowSdi req);
+
+    UserUnfollowSdo unfollow(UserUnfollowSdi req);
 }

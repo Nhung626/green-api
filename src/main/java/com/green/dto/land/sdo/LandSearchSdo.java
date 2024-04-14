@@ -7,9 +7,7 @@ public class LandSearchSdo {
 
     private String address;
 
-    private float width;
-
-    private float length;
+    private float area;
 
     private Long img_id;
 

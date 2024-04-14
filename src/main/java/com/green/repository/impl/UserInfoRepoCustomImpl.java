@@ -7,7 +7,15 @@ import com.green.repository.UserInfoRepoCustom;
 import com.green.repository.common.QueryRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 @RequiredArgsConstructor
 public class UserInfoRepoCustomImpl implements UserInfoRepoCustom {
     private final QueryRepo queryRepo;
+
+    @Override
+    public List<UserSearchSdo> search(UserInfoSearchSdi request) {
+        return null;
+    }
 }

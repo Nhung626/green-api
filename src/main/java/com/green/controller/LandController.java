@@ -6,20 +6,16 @@ import com.green.dto.land.sdo.*;
 import com.green.service.LandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/land")
 public class LandController {
-    private LandService landService;
+    private final LandService landService;
 
     @PostMapping("/create")
     //("[Tạo mới]")
@@ -58,7 +54,7 @@ public class LandController {
         return new ApiResponse(rs);
     }
 
-    @PostMapping("/update-img")
+    @PostMapping("/update-image")
     //("[Cập nhập img]")
     public ApiResponse<LandUpdateImgSdo> update(
             LandUpdateImgSdi req

@@ -13,4 +13,7 @@ public interface LandRepo extends JpaRepository<Land, Long>, LandRepoCustom {
 
     @Query(value = "select * from land where  user_id = :id and status <>2 ", nativeQuery = true)
     Optional<Land> findByUserId(Long id);
+
+    @Query(value = "select * from land where  name = :name and status <>2 ", nativeQuery = true)
+    Optional<Land> findByName(String name);
 }

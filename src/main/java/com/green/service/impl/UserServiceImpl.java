@@ -2,10 +2,16 @@ package com.green.service.impl;
 
 import com.green.constants.Const;
 import com.green.constants.Role;
+import com.green.dto.post.sdo.PostSaveSdo;
+import com.green.dto.post.sdo.PostUnSaveSdo;
 import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
 import com.green.exception.AppException;
+import com.green.model.Follow;
+import com.green.model.LikePost;
+import com.green.model.SavePost;
 import com.green.model.User;
+import com.green.repository.FollowRepo;
 import com.green.repository.UserRepo;
 import com.green.service.UserService;
 import com.green.service.common.CommonService;
@@ -15,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.green.constants.LabelKey.*;
 import static com.green.utils.DataUtil.copyProperties;
@@ -24,6 +31,7 @@ import static com.green.utils.DataUtil.validatePassword;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepo;
+    private final FollowRepo followRepo;
     private final PasswordEncoder encoder;
     private final CommonService commonService;
 
@@ -105,6 +113,38 @@ public class UserServiceImpl implements UserService {
         user.setStatus(Const.GeneralStatus.DELETED);
         return UserDeleteSdo.of(true);
     }
+
+    @Override
+    public UserFollowSdo follow(UserFollowSdi req) {
+        var userId = req.getUserId();
+        var userFollowId = req.getUserFollowId();
+
+        Optional<Follow> existingSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
+        if (existingSave.isPresent()) {
+            throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_SAVE));
+        }
+
+        var newSave = new Follow();
+        newSave.setUserId(userId);
+        newSave.setUserId(userFollowId);
+
+        followRepo.save(newSave);
+        return UserFollowSdo.of(true);
+    }
+
+    @Override
+    public UserUnfollowSdo unfollow(UserUnfollowSdi req) {
+        var userId = req.getUserId();
+        var userFollowId = req.getUserFollowId();
+
+        Optional<Follow> existingUnSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
+        if (existingUnSave.isPresent()) {
+            followRepo.deleteFollow(userId, userFollowId);
+            return UserUnfollowSdo.of(true);
+        }
+        throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_UNSAVE));
+    }
+
     private User getUser(Long id) {
         return userRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER, id)));

@@ -81,7 +81,8 @@ public class GardenInfoServiceImpl implements GardenInfoService {
     @Override
     public GardenInfoSelfSdo self(GardenInfoSelfSdi req) {
         var gardenInfo = getGardenInfo(req.getId());
-        return copyProperties(gardenInfo, GardenInfoSelfSdo.class);
+        GardenInfoSelfSdo rs = copyProperties(gardenInfo, GardenInfoSelfSdo.class);
+        return rs;
     }
 
     @Override

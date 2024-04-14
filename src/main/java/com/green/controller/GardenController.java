@@ -38,7 +38,7 @@ public class GardenController {
     @GetMapping("/self")
     //("[chi tiết]")
     public ApiResponse<GardenInfoSelfSdo> self(
-            GardenInfoSelfSdi req
+            @RequestBody GardenInfoSelfSdi req
     ){
         var rs = gardenInfoService.self(req);
         return new ApiResponse(rs);

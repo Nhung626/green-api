@@ -1,7 +1,10 @@
 package com.green.dto.userinfo.sdo;
 
+import lombok.Data;
+
 import java.time.LocalDate;
 
+@Data
 public class UserInfoSearchSdo {
     private Long id;
 
@@ -24,4 +27,6 @@ public class UserInfoSearchSdo {
     private String address;
 
     private boolean isAddressP;
+
+    private boolean isFollow;
 }

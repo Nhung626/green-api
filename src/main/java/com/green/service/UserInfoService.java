@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface UserInfoService {
     UserInfoCreateSdo create(UserInfoCreateSdi req) throws IOException;
-    UserInfoUpdateSdo update(UserInfoUpdateSdi req);
+    UserInfoUpdateSdo update(UserInfoUpdateSdi req) throws IOException;
     UserInfoSearchSdo search(UserInfoSearchSdi req);
     UserInfoDeleteSdo delete(UserInfoDeleteSdi req);
     UserInfoSelfSdo self(UserInfoSelfSdi req);

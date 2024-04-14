@@ -3,6 +3,7 @@ package com.green.dto.userinfo.sdi;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.green.utils.valid.Validation;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -14,6 +15,9 @@ public class UserInfoUpdateSdi {
     //    @ApiModelProperty(notes = "Id người dùng")
     @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
+
+    @Validation(label = LABEL_USER_INFO_AVATA, required = true)
+    private MultipartFile avata;
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)

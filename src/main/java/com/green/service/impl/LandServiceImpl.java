@@ -34,8 +34,11 @@ public class LandServiceImpl implements LandService {
         var img = req.getImg();
         checkUser(req.getUserId());
         GardenInfo gardenInfo = gardenInfoRepo.findByUserId(req.getUserId())
-                .orElseThrow(() -> new AppException(ERROR_ALREADY_EXIST, LABEL_USER_INFO));
+                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, LABEL_GARDEN_INFO));
 
+        if(landRepo.findByName(req.getName()).isPresent()){
+            throw new AppException(ERROR_ALREADY_EXIST, LABEL_LAND_NAME);
+        }
         var newLand = copyProperties(req, Land.class);
         newLand.setGardenId(gardenInfo.getId());
 
@@ -58,7 +61,7 @@ public class LandServiceImpl implements LandService {
 
         BeanUtils.copyProperties(req, land);
 
-        var img = req.getImg();
+        var img = req.getImage();
         if (!img.isEmpty()) {
             var imgDto = mediaService.uploadFile(img);
             land.setImgId(imgDto.getId());
@@ -95,7 +98,7 @@ public class LandServiceImpl implements LandService {
         var land = getLand(req.getId());
         checkUser(land.getUserId());
 
-        var img = req.getImg();
+        var img = req.getImage();
         if (img.isEmpty()) {
             throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
         }
