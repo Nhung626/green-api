@@ -16,7 +16,7 @@ public class UserInfoCreateSdi {
     private Long userId;
 
     @Validation(label = LABEL_FILE, required = true)
-    private MultipartFile avata;
+    private MultipartFile avatar;
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)

@@ -10,7 +10,7 @@ public class UserInfoSearchSdo {
 
     private Long userId;
 
-    private Long avataId;
+    private Long avatarId;
 
     private int gender;
 

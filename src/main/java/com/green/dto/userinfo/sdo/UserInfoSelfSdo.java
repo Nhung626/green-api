@@ -10,7 +10,7 @@ public class UserInfoSelfSdo {
 
     private Long userId;
 
-    private Long avataId;
+    private Long avatarId;
 
     private int gender;
 

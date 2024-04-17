@@ -28,7 +28,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final MediaService mediaService;
 
     public UserInfoCreateSdo create(UserInfoCreateSdi req) throws IOException {
-        var avata = req.getAvata();
+        var avatar = req.getAvatar();
         checkUser(req.getUserId());
 
         var userInfoOptional = userInfoRepo.findByUserId(req.getUserId());
@@ -36,9 +36,9 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
 
         var newUserInfo = copyProperties(req, UserInfo.class);
-        if (!avata.isEmpty()) {
-            var avataDto = mediaService.uploadFile(avata);
-            newUserInfo.setAvataId(avataDto.getId());
+        if (!avatar.isEmpty()) {
+            var avatarDto = mediaService.uploadFile(avatar);
+            newUserInfo.setAvatarId(avatarDto.getId());
         }
 
         userInfoRepo.save(newUserInfo);
@@ -46,14 +46,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     public UserInfoUpdateSdo update(UserInfoUpdateSdi req) throws IOException {
-        MultipartFile avata = req.getAvata();
+        MultipartFile avatar = req.getAvatar();
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
 
-        if (!avata.isEmpty()) {
-            var avataDto = mediaService.uploadFile(avata);
-            userInfo.setAvataId(avataDto.getId());
+        if (!avatar.isEmpty()) {
+            var avatarDto = mediaService.uploadFile(avatar);
+            userInfo.setAvatarId(avatarDto.getId());
         }
 
         BeanUtils.copyProperties(req, userInfo);
@@ -80,20 +80,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         return copyProperties(userInfo, UserInfoSelfSdo.class);
     }
 
-    public UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req) throws IOException {
-        var avata = req.getAvata();
+    public UserAvatarUpdateSdo uploadAvatar(UserAvatarUpdateSdi req) throws IOException {
+        var avatar = req.getAvatar();
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
-        if (avata.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, LABEL_USER_INFO_AVATA);
+        if (avatar.isEmpty()) {
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, LABEL_USER_INFO_AVATAR);
         }
 
-        var avataDto = mediaService.uploadFile(avata);
-        userInfo.setAvataId(avataDto.getId());
+        var avatarDto = mediaService.uploadFile(avatar);
+        userInfo.setAvatarId(avatarDto.getId());
 
         userInfoRepo.save(userInfo);
-        return UserAvataUpdateSdo.of(userInfo.getId());
+        return UserAvatarUpdateSdo.of(userInfo.getId());
     }
 
     private void checkUser(Long userId) {

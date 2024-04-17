@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor(staticName = "of")
-public class UserAvataUpdateSdo {
+public class UserAvatarUpdateSdo {
     private Long id;
 }

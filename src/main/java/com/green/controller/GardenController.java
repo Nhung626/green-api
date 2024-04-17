@@ -29,7 +29,7 @@ public class GardenController {
     @GetMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<GardenInfoSearchSdo>> search(
-            GardenInfoSearchSdi req
+            @RequestBody GardenInfoSearchSdi req
     ){
         var rs = gardenInfoService.search(req);
         return new ApiResponse(rs);

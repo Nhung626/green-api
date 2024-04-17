@@ -30,8 +30,8 @@ public class UserInfoController {
 
     @GetMapping("/search")
 //  ("[Tìm kiếm]")
-    public ApiResponse<Page<UserInfoSearchSdo>> search(
-            UserInfoSearchSdi req
+    public ApiResponse<UserInfoSearchSdo> search(
+            @RequestBody UserInfoSearchSdi req
     ) {
         var rs = userInfoService.search(req);
         return new ApiResponse(rs);
@@ -40,7 +40,7 @@ public class UserInfoController {
     @GetMapping("/self")
 //  ("[chi tiết]")
     public ApiResponse<UserInfoSelfSdo> self(
-            UserInfoSelfSdi req
+            @RequestBody UserInfoSelfSdi req
     ) {
         var rs = userInfoService.self(req);
         return new ApiResponse(rs);
@@ -56,12 +56,12 @@ public class UserInfoController {
         return new ApiResponse(rs);
     }
 
-    @PostMapping("/update-avata")
-//  ("[Cập nhập avata]")
-    public ApiResponse<UserAvataUpdateSdo> update(
-            UserAvataUpdateSdi req
+    @PostMapping("/update-avatar")
+//  ("[Cập nhập avatar]")
+    public ApiResponse<UserAvatarUpdateSdo> update(
+            UserAvatarUpdateSdi req
     ) throws IOException {
-        var rs = userInfoService.uploadAvata(req);
+        var rs = userInfoService.uploadAvatar(req);
         return new ApiResponse(rs);
     }
 

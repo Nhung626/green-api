@@ -19,6 +19,6 @@ public class TreeSelfSdo {
     private Long imgId;
 
     private Long landId;
-
+    //private Long landName;
     private Long gardenId;
 }

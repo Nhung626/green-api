@@ -7,7 +7,6 @@ import static com.green.constants.LabelKey.LABEL_TREE_ID;
 
 @Data
 public class DiarySearchSdi {
-
     @Validation(label = LABEL_TREE_ID, required = true)
     private Long treeId;
 }

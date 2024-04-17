@@ -5,6 +5,7 @@ import com.green.dto.tree.sdi.*;
 import com.green.dto.tree.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.Tree;
+import com.green.repository.GardenInfoRepo;
 import com.green.repository.TreeRepo;
 import com.green.service.MediaService;
 import com.green.service.TreeService;
@@ -25,14 +26,19 @@ public class TreeServiceImpl implements TreeService {
     private final TreeRepo treeRepo;
     private final MediaService mediaService;
     private final CommonService commonService;
+    private final GardenInfoRepo gardenInfoRepo;
 
     @Override
     public TreeCreateSdo create(TreeCreateSdi req) throws IOException {
         var img = req.getImg();
+        Long userId = req.getUserId();
+        checkUser(userId);
+        var garden = gardenInfoRepo.findByUserId(userId).orElseThrow(
+                () -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, userId))
+        );
 
-        checkUser(req.getUserId());
         var newTree = copyProperties(req, Tree.class);
-
+        newTree.setGardenId(garden.getId());
         if (!img.isEmpty()) {
             var imgDto = mediaService.uploadFile(img);
             newTree.setImgId(imgDto.getId());
@@ -48,7 +54,7 @@ public class TreeServiceImpl implements TreeService {
 
         var img = req.getImg();
         if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_FILE));
         }
 
         BeanUtils.copyProperties(req, tree);
@@ -87,6 +93,6 @@ public class TreeServiceImpl implements TreeService {
 
     private Tree getTree(Long id) {
         return treeRepo.findById(id)
-                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, id)));
+                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_TREE_ID, id)));
     }
 }

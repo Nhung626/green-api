@@ -14,8 +14,8 @@ public class UserInfo extends AbstractAudit{
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "avata_id")
-    private Long avataId;
+    @Column(name = "avatar_id")
+    private Long avatarId;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
