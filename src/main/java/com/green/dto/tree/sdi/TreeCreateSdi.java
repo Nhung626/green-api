@@ -16,7 +16,7 @@ public class TreeCreateSdi {
     private String name;
 
     @Validation(label = LABEL_TREE_TYPE)
-    private String typeTree;
+    private String type;
 
     @Validation(label = LABEL_TREE_IMG)
     private MultipartFile img;

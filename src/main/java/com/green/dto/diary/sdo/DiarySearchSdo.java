@@ -5,8 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@AllArgsConstructor(staticName = "of")
+//@AllArgsConstructor(staticName = "of")
 public class DiarySearchSdo {
+    private  Long id;
+    private String createAt;
     private List<Long> imgIds;
     private String description;
     private Long landId;

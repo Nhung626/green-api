@@ -8,7 +8,4 @@ import static com.green.constants.LabelKey.*;
 public class StatusLikeSdi {
     @Validation(label = LABEL_STATUS_ID, required = true)
     private Long statusId;
-
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

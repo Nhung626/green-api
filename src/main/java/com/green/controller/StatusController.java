@@ -36,9 +36,9 @@ public class StatusController {
     @GetMapping("/self")
     //("[chi tiết]")
     public ApiResponse<StatusSelfSdo> self(
-            StatusSelfSdi req, Long userId
+            StatusSelfSdi req
     ){
-        var rs = statusService.self(req, userId);
+        var rs = statusService.self(req);
         return new ApiResponse(rs);
     }
 

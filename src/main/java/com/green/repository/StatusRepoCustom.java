@@ -7,7 +7,7 @@ import com.green.dto.status.sdo.StatusSelfSdo;
 
 import java.util.List;
 public interface StatusRepoCustom {
-    List<StatusSearchSdo> search (StatusSearchSdi req);
+    List<StatusSearchSdo> search (StatusSearchSdi req, Long myId);
 
     StatusSelfSdo self(StatusSelfSdi req, Long userId);
 }

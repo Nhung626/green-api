@@ -9,13 +9,13 @@ import java.time.LocalDate;
 public class TreeSearchSdo {
     private Long id;
 
-    private LocalDate startDate;
+    private String startDate;
 
-    private LocalDate endDate;
+    private String endDate;
 
     private String name;
 
-    private String typeTree;
+    private String type;
 
     private Long imgId;
 

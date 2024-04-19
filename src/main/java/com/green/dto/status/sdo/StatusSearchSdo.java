@@ -3,20 +3,21 @@ package com.green.dto.status.sdo;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 public class StatusSearchSdo {
     private Long id;
 
     private Long userId;
 
-    private Long imgId;
+    private List<Long> imgIds;
 
     private String content;
 
-    private LocalDateTime publishTime;
+    private LocalDateTime createdAt;
 
-    //status đã chỉnh sửa hay chưa
-    private Boolean isEdited;
+    private LocalDateTime updatedAt;
 
     //Số lượng likes của status
     private Long countLike;

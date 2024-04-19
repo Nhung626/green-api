@@ -6,6 +6,7 @@ import com.green.dto.userinfo.sdo.*;
 import com.green.service.UserInfoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/user-info")
-@AllArgsConstructor
+@RequiredArgsConstructor
 //@Api(tags = "USER INFO", description = "THÔNG TIN CƠ BẢN VÀ GIỚI THIỆU")
 public class UserInfoController {
     private final UserInfoService userInfoService;
@@ -31,7 +32,7 @@ public class UserInfoController {
     @GetMapping("/search")
 //  ("[Tìm kiếm]")
     public ApiResponse<UserInfoSearchSdo> search(
-            @RequestBody UserInfoSearchSdi req
+            UserInfoSearchSdi req
     ) {
         var rs = userInfoService.search(req);
         return new ApiResponse(rs);
@@ -58,7 +59,7 @@ public class UserInfoController {
 
     @PostMapping("/update-avatar")
 //  ("[Cập nhập avatar]")
-    public ApiResponse<UserAvatarUpdateSdo> update(
+    public ApiResponse<UserAvatarUpdateSdo> updateData(
             UserAvatarUpdateSdi req
     ) throws IOException {
         var rs = userInfoService.uploadAvatar(req);

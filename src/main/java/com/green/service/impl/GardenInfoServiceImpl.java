@@ -3,9 +3,11 @@ package com.green.service.impl;
 import com.green.constants.Const;
 import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
+import com.green.dto.userinfo.sdo.UserInfoSearchSdo;
 import com.green.exception.AppException;
 import com.green.model.GardenInfo;
 import com.green.repository.GardenInfoRepo;
+import com.green.repository.UserInfoRepo;
 import com.green.service.GardenInfoService;
 import com.green.service.MediaService;
 import com.green.service.common.CommonService;
@@ -23,6 +25,7 @@ import static com.green.utils.DataUtil.copyProperties;
 @RequiredArgsConstructor
 public class GardenInfoServiceImpl implements GardenInfoService {
     private final GardenInfoRepo gardenInfoRepo;
+    private final UserInfoRepo userInfoRepo;
     private final MediaService mediaService;
     private final CommonService commonService;
 
@@ -65,7 +68,12 @@ public class GardenInfoServiceImpl implements GardenInfoService {
 
     @Override
     public List<GardenInfoSearchSdo> search(GardenInfoSearchSdi req) {
-        return gardenInfoRepo.search(req);
+        var res = gardenInfoRepo.search(req);
+        res.forEach((data) -> {
+            var sdo = userInfoRepo.findByUserId(data.getUserId()).get();
+            data.setUserInfo(copyProperties(sdo,UserInfoSearchSdo.class));
+        });
+        return res;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class TreeController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<TreeSearchSdo>> search(
             TreeSearchSdi req
