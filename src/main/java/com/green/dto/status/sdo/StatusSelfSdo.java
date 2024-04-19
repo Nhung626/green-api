@@ -2,11 +2,10 @@ package com.green.dto.status.sdo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class vcStatusSelfSdo {
+public class StatusSelfSdo {
     private Long id;
 
     private Long userId;
