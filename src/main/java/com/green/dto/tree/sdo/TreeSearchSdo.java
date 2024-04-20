@@ -3,8 +3,6 @@ package com.green.dto.tree.sdo;
 
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
 public class TreeSearchSdo {
     private Long id;
@@ -19,7 +17,13 @@ public class TreeSearchSdo {
 
     private Long imgId;
 
+    private int sum;
+
+    private int state;
+
     private Long landId;
+
+    private String landName;
 
     private Long gardenId;
 }

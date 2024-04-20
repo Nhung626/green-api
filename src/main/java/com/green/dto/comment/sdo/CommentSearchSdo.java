@@ -19,5 +19,7 @@ public class CommentSearchSdo extends CommonSdo {
 
     private Long countLike;
 
+    private Integer countReply;
+
     private Boolean userLiked;
 }

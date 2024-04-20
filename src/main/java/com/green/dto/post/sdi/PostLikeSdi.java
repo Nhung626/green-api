@@ -10,6 +10,4 @@ public class PostLikeSdi {
     @Validation(label = LABEL_POST_ID, required = true)
     private Long postId;
 
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

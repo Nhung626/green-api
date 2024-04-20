@@ -10,6 +10,4 @@ public class CommentLikeSdi {
     @Validation(label = LABEL_COMMENT_ID, required = true)
     private Long commentId;
 
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

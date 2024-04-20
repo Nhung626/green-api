@@ -26,4 +26,6 @@ public class TreeCreateSdi {
 
     @Validation(label = LABEL_USER_ID)
     private Long userId;
+
+    private  int sum;
 }

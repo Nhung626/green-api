@@ -30,9 +30,9 @@ public class CommentController {
     @GetMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<CommentSearchSdo>> search(
-            CommentSearchSdi req, PageInfo pageInfo
+            CommentSearchSdi req
     ) {
-        var rs = commentService.search(req, pageInfo);
+        var rs = commentService.search(req);
         return new ApiResponse(rs);
     }
 

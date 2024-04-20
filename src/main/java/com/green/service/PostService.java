@@ -24,4 +24,6 @@ public interface PostService {
     PostSaveSdo save(PostSaveSdi req);
 
     PostUnSaveSdo unSave(PostUnsaveSdi req);
+
+    List<PostSelfSdo> getAllSave();
 }

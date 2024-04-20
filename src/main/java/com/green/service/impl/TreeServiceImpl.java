@@ -1,6 +1,7 @@
 package com.green.service.impl;
 
 import com.green.constants.Const;
+import com.green.constants.State;
 import com.green.dto.tree.sdi.*;
 import com.green.dto.tree.sdo.*;
 import com.green.exception.AppException;
@@ -15,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.green.constants.LabelKey.*;
@@ -44,6 +46,7 @@ public class TreeServiceImpl implements TreeService {
             newTree.setImgId(imgDto.getId());
         }
 
+        newTree.setState(State.STATE_PLANTED);
         treeRepo.save(newTree);
         return TreeCreateSdo.of(newTree.getId());
     }
@@ -51,6 +54,7 @@ public class TreeServiceImpl implements TreeService {
     @Override
     public TreeUpdateSdo update(TreeUpdateSdi req) throws IOException {
         Tree tree = getTree(req.getId());
+        String state = req.getState();
 
         var img = req.getImg();
         if (img.isEmpty()) {
@@ -60,6 +64,10 @@ public class TreeServiceImpl implements TreeService {
         BeanUtils.copyProperties(req, tree);
         var imgDto = mediaService.uploadFile(img);
         tree.setImgId(imgDto.getId());
+
+        if(!state.isEmpty()){
+            tree.setState(State.valueOf(state));
+        }
 
         treeRepo.save(tree);
         return TreeUpdateSdo.of(tree.getId());

@@ -1,5 +1,6 @@
 package com.green.model;
 
+import com.green.constants.State;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -37,4 +38,10 @@ public class Tree extends AbstractAudit{
 
     @Column(name = "garden_id")
     private Long gardenId;
+
+    @Column(name = "sum")
+    private int sum;
+
+    @Column(name = "state")
+    private State state;
 }

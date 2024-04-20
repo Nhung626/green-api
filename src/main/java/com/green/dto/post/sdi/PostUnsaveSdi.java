@@ -10,7 +10,4 @@ import static com.green.constants.LabelKey.LABEL_USER_ID;
 public class PostUnsaveSdi {
     @Validation(label = LABEL_POST_ID, required = true)
     private Long postId;
-
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

@@ -3,7 +3,6 @@ package com.green.service.impl;
 import com.green.constants.Const;
 import com.green.dto.comment.sdi.*;
 import com.green.dto.comment.sdo.*;
-import com.green.dto.common.pagination.PageInfo;
 import com.green.exception.AppException;
 import com.green.model.Comment;
 import com.green.model.Like;
@@ -13,7 +12,6 @@ import com.green.repository.LikeCommentRepo;
 import com.green.service.CommentService;
 import com.green.service.common.CommonService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepo commentRepo;
     private final LikeCommentRepo likeCommentRepo;
     private final CommonService commonService;
-    
+
     @Override
     public CommentCreateSdo create(CommentCreateSdi req) {
         if (req.getParentId() != null) {
@@ -44,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
         commentRepo.save(comment);
 
         return CommentCreateSdo.of(comment.getId());
-}
+    }
 
     @Override
     public CommentUpdateSdo update(CommentUpdateSdi req) {
@@ -73,9 +71,9 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Page<CommentSearchSdo> search(CommentSearchSdi req, PageInfo pageInfo) {
+    public List<CommentSearchSdo> search(CommentSearchSdi req) {
         Long userId = commonService.getIdLogin();
-        return commentRepo.search(req, pageInfo, userId);
+        return commentRepo.search(req, userId);
     }
 
     @Override
@@ -86,14 +84,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentLikeSdo like(CommentLikeSdi req) {
-        Optional<Like> existingLike = likeCommentRepo.findByUserIdAndCommentId(req.getUserId(), req.getCommentId());
+        Long userId = commonService.getIdLogin();
+        Long commentId = req.getCommentId();
+
+        Optional<Like> existingLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
 
-        var newLike = new LikeComment();
-        newLike.setUserId(req.getUserId());
-        newLike.setCommentId(req.getCommentId());
+        var newLike = new LikeComment(userId, commentId);
 
         likeCommentRepo.save(newLike);
         return CommentLikeSdo.of(true);
@@ -101,14 +100,18 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentUnlikeSdo unlike(CommentUnlikeSdi req) {
-        Optional<Like> existingUnLike = likeCommentRepo.findByUserIdAndCommentId(req.getUserId(), req.getCommentId());
+        Long userId = commonService.getIdLogin();
+        Long commentId = req.getCommentId();
+
+        Optional<Like> existingUnLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
 
         if (existingUnLike.isPresent()) {
-            likeCommentRepo.deleteLike(req.getUserId(), req.getCommentId());
+            likeCommentRepo.deleteLike(userId, commentId);
             return CommentUnlikeSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_UNLIKE));
     }
+
     public Comment getComment(Long id) {
         return commentRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT, id)));
