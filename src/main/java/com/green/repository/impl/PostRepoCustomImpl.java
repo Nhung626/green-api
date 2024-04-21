@@ -33,7 +33,7 @@ public class PostRepoCustomImpl implements PostRepoCustom {
         String sql = "select p.*, " +
                 "(select count(*) from like_post where l.status_id = p.id) as countLike " +
                 "(select count(*) from save where save.status_id = p.id) as countSave " +
-                (userId != null ? ", exists(select 1 from lp where lp.post_id =:id and lp.user_id = :userId)" : ", false") + " as userLiked " +
+                (userId != null ? ", exists(select 1 from like_post lp where lp.post_id =:id and lp.user_id = :userId)" : ", false") + " as userLiked " +
                 (userId != null ? ", exists(select 1 from save where save.post_id =:id and lp.user_id = :userId)" : ", false") + " as userSaved " +
                 " from post p where  id = :id  and status <>2 ";
 

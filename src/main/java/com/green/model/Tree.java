@@ -1,9 +1,7 @@
 package com.green.model;
 
 import com.green.constants.State;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,4 +42,5 @@ public class Tree extends AbstractAudit{
 
     @Column(name = "state")
     private State state;
+
 }

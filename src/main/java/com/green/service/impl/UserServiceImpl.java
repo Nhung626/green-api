@@ -2,14 +2,10 @@ package com.green.service.impl;
 
 import com.green.constants.Const;
 import com.green.constants.Role;
-import com.green.dto.post.sdo.PostSaveSdo;
-import com.green.dto.post.sdo.PostUnSaveSdo;
 import com.green.dto.user.sdi.*;
 import com.green.dto.user.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.Follow;
-import com.green.model.LikePost;
-import com.green.model.SavePost;
 import com.green.model.User;
 import com.green.repository.FollowRepo;
 import com.green.repository.UserRepo;
@@ -68,7 +64,6 @@ public class UserServiceImpl implements UserService {
                 () -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_EMAIL))
         );
         if (req.getPassword() == null){
-//            otpService.create(otpCreate(existUser.getId(), OTP.Purpose.RESET_PASSWORD));
             return UserResetPasswordSdo.of(existUser.getId());
         }
         var password = req.getPassword();

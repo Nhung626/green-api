@@ -37,12 +37,12 @@ public class PostController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/self")
+    @PostMapping("/self")
     //("[chi tiết]")
     public ApiResponse<PostSelfSdo> self(
-            PostSelfSdi req, Long userId
+            PostSelfSdi req
     ) {
-        var rs = postService.self(req, userId);
+        var rs = postService.self(req);
         return new ApiResponse(rs);
     }
 
@@ -67,7 +67,7 @@ public class PostController {
 
     @PostMapping("/like")
     public ApiResponse<PostLikeSdo> like(
-            @RequestBody @Valid PostLikeSdi req
+             PostLikeSdi req
     ){
         var rs = postService.like(req);
         return new ApiResponse<>(rs);
@@ -75,7 +75,7 @@ public class PostController {
 
     @PostMapping("/unlike")
     public ApiResponse<PostUnlikeSdo> like(
-            @RequestBody @Valid PostUnlikeSdi req
+             PostUnlikeSdi req
     ){
         var rs = postService.unlike(req);
         return new ApiResponse<>(rs);

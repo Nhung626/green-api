@@ -90,7 +90,8 @@ public class PostServiceImpl implements PostService {
         return PostDeleteSdo.of(true);
     }
 
-    public PostSelfSdo self(PostSelfSdi req, Long userId) {
+    public PostSelfSdo self(PostSelfSdi req) {
+        Long userId = commonService.getIdLogin();
         return postRepo.self(req, userId);
     }
 
@@ -158,7 +159,7 @@ public class PostServiceImpl implements PostService {
         Long userId = commonService.getIdLogin();
         List<SavePost> savePosts = savePostRepo.findByUserId(userId);
         List<PostSelfSdo> res = savePosts.stream().map((data) -> {
-           return postRepo.self(new PostSelfSdi(data.getPostId()), userId);
+            return postRepo.self(new PostSelfSdi(data.getPostId()), userId);
         }).toList();
 
         return res;
