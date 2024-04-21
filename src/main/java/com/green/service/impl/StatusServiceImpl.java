@@ -38,13 +38,15 @@ public class StatusServiceImpl implements StatusService {
 
         checkUser(userId);
         Status status = copyProperties(req, Status.class);
-        status.setMedias((img.stream().map(data -> {
-            try {
-                return mediaService.getImg(mediaService.uploadFile(data).getId());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList())));
+        if (img!= null) {
+            status.setMedias((img.stream().map(data -> {
+                try {
+                    return mediaService.getImg(mediaService.uploadFile(data).getId());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList())));
+        }
         statusRepo.save(status);
 
         return StatusCreateSdo.of(status.getId());
@@ -59,14 +61,15 @@ public class StatusServiceImpl implements StatusService {
         status.setContent(req.getContent());
 
         var img = req.getImg();
-        status.setMedias((img.stream().map(data -> {
-            try {
-                return mediaService.getImg(mediaService.uploadFile(data).getId());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList())));
-
+        if (!img.isEmpty()) {
+            status.setMedias((img.stream().map(data -> {
+                try {
+                    return mediaService.getImg(mediaService.uploadFile(data).getId());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList())));
+        }
         statusRepo.save(status);
 
         return StatusUpdateSdo.of(status.getId());

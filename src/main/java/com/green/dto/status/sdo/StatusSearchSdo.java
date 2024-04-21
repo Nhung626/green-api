@@ -15,9 +15,9 @@ public class StatusSearchSdo {
 
     private String content;
 
-    private LocalDateTime createdAt;
+    private String createdAt;
 
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     //Số lượng likes của status
     private Long countLike;

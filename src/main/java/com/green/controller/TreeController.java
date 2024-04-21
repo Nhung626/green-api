@@ -58,7 +58,7 @@ public class TreeController {
     @PostMapping("/delete")
     //("[Xóa]")
     public ApiResponse<TreeDeleteSdo> delete(
-            @RequestBody @Valid TreeDeleteSdi req
+            TreeDeleteSdi req
     ) {
         var rs = treeService.delete(req);
         return new ApiResponse(rs);

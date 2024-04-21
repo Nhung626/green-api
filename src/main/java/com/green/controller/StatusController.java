@@ -63,7 +63,7 @@ public class StatusController {
 
     @PostMapping("/like")
     public ApiResponse<StatusLikeSdo> like(
-            @RequestBody @Valid StatusLikeSdi req
+            StatusLikeSdi req
     ){
         var rs = statusService.like(req);
         return new ApiResponse<>(rs);
@@ -71,7 +71,7 @@ public class StatusController {
 
     @PostMapping("/unlike")
     public ApiResponse<StatusUnlikeSdo> like(
-            @RequestBody @Valid StatusUnlikeSdi req
+            StatusUnlikeSdi req
     ){
         var rs = statusService.unlike(req);
         return new ApiResponse<>(rs);

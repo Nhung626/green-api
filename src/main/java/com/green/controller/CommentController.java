@@ -27,7 +27,7 @@ public class CommentController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<CommentSearchSdo>> search(
             CommentSearchSdi req
