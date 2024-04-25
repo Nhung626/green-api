@@ -2,8 +2,7 @@ package com.green.service;
 
 import com.green.dto.comment.sdi.*;
 import com.green.dto.comment.sdo.*;
-import com.green.dto.common.pagination.PageInfo;
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 import java.io.IOException;
 
@@ -14,7 +13,7 @@ public interface CommentService {
 
     CommentDeleteSdo delete(CommentDeleteSdi req);
 
-    Page<CommentSearchSdo> search(CommentSearchSdi req, PageInfo pageInfo);
+    List<CommentSearchSdo> search(CommentSearchSdi req);
 
     CommentSelfSdo self(CommentSelfSdi req);
 

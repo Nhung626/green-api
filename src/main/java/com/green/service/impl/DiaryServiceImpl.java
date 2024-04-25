@@ -4,6 +4,7 @@ import com.green.constants.Const;
 import com.green.dto.diary.sdi.*;
 import com.green.dto.diary.sdo.*;
 import com.green.exception.AppException;
+import com.green.model.AbstractAudit;
 import com.green.model.Diary;
 import com.green.repository.DiaryRepo;
 import com.green.service.DiaryService;
@@ -29,7 +30,7 @@ public class DiaryServiceImpl implements DiaryService {
         var img = req.getImages();
 
         Diary diary = copyProperties(req, Diary.class);
-        diary.setMedias((img.stream().map(data-> {
+        diary.setMedias((img.stream().map(data -> {
             try {
                 return mediaService.getImg(mediaService.uploadFile(data).getId());
             } catch (IOException e) {
@@ -46,7 +47,7 @@ public class DiaryServiceImpl implements DiaryService {
         Diary diary = getDiary(req.getId());
         var img = req.getImages();
 
-        diary.setMedias((img.stream().map(data-> {
+        diary.setMedias((img.stream().map(data -> {
             try {
                 return mediaService.getImg(mediaService.uploadFile(data).getId());
             } catch (IOException e) {
@@ -60,7 +61,15 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Override
     public List<DiarySearchSdo> search(DiarySearchSdi req) {
-        return diaryRepo.search(req);
+        var listDiary = diaryRepo.findByTreeId(req.getTreeId());
+        return listDiary.stream().map((data) -> {
+            var res = copyProperties(data, DiarySearchSdo.class);
+            var medias = data.getMedias();
+            var imgIds = medias.stream().map(AbstractAudit::getId).toList();
+            res.setImgIds(imgIds);
+            res.setCreatedAt(data.getCreatedAt().toString());
+            return res;
+        }).toList();
     }
 
     @Override

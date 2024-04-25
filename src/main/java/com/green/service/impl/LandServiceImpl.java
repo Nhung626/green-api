@@ -100,7 +100,7 @@ public class LandServiceImpl implements LandService {
 
         var img = req.getImage();
         if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_FILE));
         }
         var imgDto = mediaService.uploadFile(img);
         land.setImgId(imgDto.getId());

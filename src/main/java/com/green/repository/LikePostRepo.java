@@ -11,10 +11,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface LikePostRepo extends JpaRepository<LikePost, Long> {
-    Optional<Like> findByUserIdAndPostId(Long userId, Long postId);
+    Optional<LikePost> findByUserIdAndPostId(Long userId, Long postId);
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM likes WHERE user_id = :userId AND post_id = :postId", nativeQuery = true)
+    @Query(value = "DELETE FROM like_post WHERE user_id = :userId AND post_id = :postId", nativeQuery = true)
     void deleteLike(@Param("userId") Long userId, @Param("postId") Long postId);
 }

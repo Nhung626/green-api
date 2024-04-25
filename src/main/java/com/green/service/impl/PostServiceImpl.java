@@ -4,15 +4,13 @@ import com.green.constants.Const;
 import com.green.dto.post.sdi.*;
 import com.green.dto.post.sdo.*;
 import com.green.exception.AppException;
-import com.green.model.Like;
-import com.green.model.LikePost;
-import com.green.model.Post;
-import com.green.model.SavePost;
+import com.green.model.*;
 import com.green.repository.LikePostRepo;
 import com.green.repository.PostRepo;
 import com.green.repository.SavePostRepo;
 import com.green.service.MediaService;
 import com.green.service.PostService;
+import com.green.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,7 @@ import static com.green.utils.DataUtil.copyProperties;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepo postRepo;
+    private final CommonService commonService;
     private final MediaService mediaService;
     private final LikePostRepo likePostRepo;
     private final SavePostRepo savePostRepo;
@@ -76,7 +75,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostSearchSdo> search(PostSearchSdi req) {
-        return null;
+        Long userId = commonService.getIdLogin();
+        List<PostSearchSdo> res = postRepo.search(req, userId);
+        res.forEach((data) -> {
+            Post post = postRepo.findById(data.getId()).get();
+            List<Long> imgIds = post.getMedias().stream().map(AbstractAudit::getId).toList();
+            data.setImageIds(imgIds);
+        });
+        return res;
     }
 
     @Override
@@ -88,22 +94,25 @@ public class PostServiceImpl implements PostService {
         return PostDeleteSdo.of(true);
     }
 
-    public PostSelfSdo self(PostSelfSdi req, Long userId) {
-        return postRepo.self(req, userId);
+    public PostSelfSdo self(PostSelfSdi req) {
+        Long userId = commonService.getIdLogin();
+        PostSelfSdo res = postRepo.self(req, userId);
+        Post post = postRepo.findById(res.getId()).get();
+        List<Long> imgIds = post.getMedias().stream().map(AbstractAudit::getId).toList();
+        res.setImageIds(imgIds);
+        return res;
     }
 
     public PostLikeSdo like(PostLikeSdi req) {
-        var userId = req.getUserId();
-        var postId = req.getPostId();
+        Long userId = commonService.getIdLogin();
+        Long postId = req.getPostId();
 
-        Optional<Like> existingLike = likePostRepo.findByUserIdAndPostId(userId, postId);
+        Optional<LikePost> existingLike = likePostRepo.findByUserIdAndPostId(userId, postId);
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_LIKE));
         }
 
-        var newLike = new LikePost();
-        newLike.setUserId(userId);
-        newLike.setUserId(postId);
+        var newLike = new LikePost(userId, postId);
 
         likePostRepo.save(newLike);
         return PostLikeSdo.of(true);
@@ -111,12 +120,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostUnlikeSdo unlike(PostUnlikeSdi req) {
-        var userId = req.getUserId();
-        var postId = req.getPostId();
+        Long userId = commonService.getIdLogin();
+        Long postId = req.getPostId();
 
-        Optional<Like> existingUnLike = likePostRepo.findByUserIdAndPostId(userId, postId);
+        Optional<LikePost> existingUnLike = likePostRepo.findByUserIdAndPostId(userId, postId);
         if (existingUnLike.isPresent()) {
-            likePostRepo.deleteLike(req.getUserId(), req.getUserId());
+            likePostRepo.deleteLike(userId, postId);
             return PostUnlikeSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_UNLIKE));
@@ -124,17 +133,15 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostSaveSdo save(PostSaveSdi req) {
-        var userId = req.getUserId();
-        var postId = req.getPostId();
+        Long userId = commonService.getIdLogin();
+        Long postId = req.getPostId();
 
         Optional<SavePost> existingSave = savePostRepo.findByUserIdAndPostId(userId, postId);
         if (existingSave.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_SAVE));
         }
 
-        var newSave = new SavePost();
-        newSave.setUserId(userId);
-        newSave.setUserId(postId);
+        var newSave = new SavePost(userId, postId);
 
         savePostRepo.save(newSave);
         return PostSaveSdo.of(true);
@@ -142,8 +149,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostUnSaveSdo unSave(PostUnsaveSdi req) {
-        var userId = req.getUserId();
-        var postId = req.getPostId();
+        Long userId = commonService.getIdLogin();
+        Long postId = req.getPostId();
 
         Optional<SavePost> existingUnSave = savePostRepo.findByUserIdAndPostId(userId, postId);
         if (existingUnSave.isPresent()) {
@@ -151,6 +158,16 @@ public class PostServiceImpl implements PostService {
             return PostUnSaveSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_UNSAVE));
+    }
+
+    @Override
+    public List<PostSelfSdo> getAllSave() {
+        Long userId = commonService.getIdLogin();
+        List<SavePost> savePosts = savePostRepo.findByUserId(userId);
+        List<PostSelfSdo> res = savePosts.stream().map((data) -> {
+            return self(new PostSelfSdi(data.getPostId()));
+        }).toList();
+        return res;
     }
 
     public Post getPost(Long id) {

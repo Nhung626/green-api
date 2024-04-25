@@ -13,4 +13,12 @@ public class CommentPostSelfSdo {
     private Long parentId;
 
     private String content;
+
+    private Boolean isEdited;
+
+    private Long countLike;
+
+    private Integer countReply;
+
+    private Boolean userLiked;
 }

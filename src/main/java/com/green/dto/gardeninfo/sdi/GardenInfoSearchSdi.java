@@ -12,4 +12,8 @@ public class GardenInfoSearchSdi {
 
     @Validation(label = LABEL_GARDEN_INFO_NAME, required = true)
     private String name;
+
+    public GardenInfoSearchSdi(Long userId) {
+        this.userId = userId;
+    }
 }

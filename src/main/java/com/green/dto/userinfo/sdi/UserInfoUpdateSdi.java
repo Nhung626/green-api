@@ -13,11 +13,11 @@ import static com.green.utils.DateTimeUtils.DATE_FORMAT2;
 @Data
 public class UserInfoUpdateSdi {
     //    @ApiModelProperty(notes = "Id người dùng")
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
+//    @Validation(label = LABEL_USER_ID, required = true)
+//    private Long userId;
 
-    @Validation(label = LABEL_USER_INFO_AVATA, required = true)
-    private MultipartFile avata;
+    @Validation(label = LABEL_USER_INFO_AVATAR, required = true)
+    private MultipartFile avatar;
 
     //    @ApiModelProperty(notes = "Giới tính")
     @Validation(label = LABEL_USER_INFO_GENDER)

@@ -1,10 +1,12 @@
 package com.green.service.impl;
 
 import com.green.constants.Const;
+import com.green.constants.State;
 import com.green.dto.tree.sdi.*;
 import com.green.dto.tree.sdo.*;
 import com.green.exception.AppException;
 import com.green.model.Tree;
+import com.green.repository.GardenInfoRepo;
 import com.green.repository.TreeRepo;
 import com.green.service.MediaService;
 import com.green.service.TreeService;
@@ -14,6 +16,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.green.constants.LabelKey.*;
@@ -25,19 +28,25 @@ public class TreeServiceImpl implements TreeService {
     private final TreeRepo treeRepo;
     private final MediaService mediaService;
     private final CommonService commonService;
+    private final GardenInfoRepo gardenInfoRepo;
 
     @Override
     public TreeCreateSdo create(TreeCreateSdi req) throws IOException {
         var img = req.getImg();
+        Long userId = req.getUserId();
+        checkUser(userId);
+        var garden = gardenInfoRepo.findByUserId(userId).orElseThrow(
+                () -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, userId))
+        );
 
-        checkUser(req.getUserId());
         var newTree = copyProperties(req, Tree.class);
-
+        newTree.setGardenId(garden.getId());
         if (!img.isEmpty()) {
             var imgDto = mediaService.uploadFile(img);
             newTree.setImgId(imgDto.getId());
         }
 
+        newTree.setState(State.STATE_PLANTED);
         treeRepo.save(newTree);
         return TreeCreateSdo.of(newTree.getId());
     }
@@ -45,15 +54,20 @@ public class TreeServiceImpl implements TreeService {
     @Override
     public TreeUpdateSdo update(TreeUpdateSdi req) throws IOException {
         Tree tree = getTree(req.getId());
+        String state = req.getState();
 
         var img = req.getImg();
         if (img.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_USER_INFO_AVATA));
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, List.of(LABEL_FILE));
         }
 
         BeanUtils.copyProperties(req, tree);
         var imgDto = mediaService.uploadFile(img);
         tree.setImgId(imgDto.getId());
+
+        if(!state.isEmpty()){
+            tree.setState(State.valueOf(state));
+        }
 
         treeRepo.save(tree);
         return TreeUpdateSdo.of(tree.getId());
@@ -87,6 +101,6 @@ public class TreeServiceImpl implements TreeService {
 
     private Tree getTree(Long id) {
         return treeRepo.findById(id)
-                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_GARDEN_INFO_ID, id)));
+                .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_TREE_ID, id)));
     }
 }

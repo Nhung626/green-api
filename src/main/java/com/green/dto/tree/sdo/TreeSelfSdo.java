@@ -14,11 +14,16 @@ public class TreeSelfSdo {
 
     private String name;
 
-    private String typeTree;
+    private String type;
 
     private Long imgId;
+
+    private int sum;
+
+    private int state;
 
     private Long landId;
 
     private Long gardenId;
+    //private Long landName;
 }

@@ -4,6 +4,7 @@ import com.green.constants.Const;
 import com.green.dto.status.sdi.*;
 import com.green.dto.status.sdo.*;
 import com.green.exception.AppException;
+import com.green.model.AbstractAudit;
 import com.green.model.Like;
 import com.green.model.Status;
 import com.green.repository.LikeRepo;
@@ -37,13 +38,15 @@ public class StatusServiceImpl implements StatusService {
 
         checkUser(userId);
         Status status = copyProperties(req, Status.class);
-        status.setMedias((img.stream().map(data-> {
-            try {
-                return mediaService.getImg(mediaService.uploadFile(data).getId());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList())));
+        if (img!= null) {
+            status.setMedias((img.stream().map(data -> {
+                try {
+                    return mediaService.getImg(mediaService.uploadFile(data).getId());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList())));
+        }
         statusRepo.save(status);
 
         return StatusCreateSdo.of(status.getId());
@@ -58,14 +61,15 @@ public class StatusServiceImpl implements StatusService {
         status.setContent(req.getContent());
 
         var img = req.getImg();
-        status.setMedias((img.stream().map(data-> {
-            try {
-                return mediaService.getImg(mediaService.uploadFile(data).getId());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList())));
-
+        if (!img.isEmpty()) {
+            status.setMedias((img.stream().map(data -> {
+                try {
+                    return mediaService.getImg(mediaService.uploadFile(data).getId());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList())));
+        }
         statusRepo.save(status);
 
         return StatusUpdateSdo.of(status.getId());
@@ -73,28 +77,35 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public List<StatusSearchSdo> search(StatusSearchSdi req) {
-        List<Status> statusList = statusRepo.findByUserId(req.getUserId());
-        return statusList.stream().map(data -> copyProperties(data, StatusSearchSdo.class)).toList();
+        var myId = commonService.getIdLogin();
+        List<StatusSearchSdo> res = statusRepo.search(req, myId);
+        res.forEach((data) -> {
+            Status status = statusRepo.findById(data.getId()).get();
+            List<Long> imgIds = status.getMedias().stream().map(AbstractAudit::getId).toList();
+            data.setImgIds(imgIds);
+        });
+        return res;
     }
 
     @Override
     public StatusLikeSdo like(StatusLikeSdi req) {
-        Optional<Like> existingLike = likeRepo.findByUserIdAndStatusId(req.getUserId(), req.getStatusId());
+        var userId = commonService.getIdLogin();
+
+        Optional<Like> existingLike = likeRepo.findByUserIdAndStatusId(userId, req.getStatusId());
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
-        var newLike = new Like();
-        newLike.setUserId(req.getUserId());
-        newLike.setUserId(req.getStatusId());
+        Like newLike = new Like(userId, req.getStatusId());
         likeRepo.save(newLike);
         return StatusLikeSdo.of(true);
     }
 
     @Override
     public StatusUnlikeSdo unlike(StatusUnlikeSdi req) {
-        Optional<Like> existingUnLike = likeRepo.findByUserIdAndStatusId(req.getUserId(), req.getStatusId());
+        var userId = commonService.getIdLogin();
+        Optional<Like> existingUnLike = likeRepo.findByUserIdAndStatusId(userId, req.getStatusId());
         if (existingUnLike.isPresent()) {
-            likeRepo.deleteLike(req.getUserId(), req.getUserId());
+            likeRepo.deleteLike(userId, req.getStatusId());
             return StatusUnlikeSdo.of(true);
         }
         throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_UNLIKE));
@@ -111,8 +122,13 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public StatusSelfSdo self(StatusSelfSdi req, Long userId) {
-        return statusRepo.self(req, userId);
+    public StatusSelfSdo self(StatusSelfSdi req) {
+        var userId = commonService.getIdLogin();
+        var res = statusRepo.self(req, userId);
+        var status = statusRepo.findById(res.getId()).get();
+        List<Long> imgIds = status.getMedias().stream().map(AbstractAudit::getId).toList();
+        res.setImgIds(imgIds);
+        return res;
     }
 
     private void checkUser(Long userId) {
@@ -121,7 +137,7 @@ public class StatusServiceImpl implements StatusService {
         }
     }
 
-    private Status getStatus(Long id){
+    private Status getStatus(Long id) {
         return statusRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_STATUS_ID, id)));
     }

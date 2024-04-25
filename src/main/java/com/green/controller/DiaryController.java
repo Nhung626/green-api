@@ -26,7 +26,7 @@ public class DiaryController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<DiarySearchSdo>> search(
             DiarySearchSdi req
@@ -38,7 +38,7 @@ public class DiaryController {
     @GetMapping("/self")
     //("[chi tiết]")
     public ApiResponse<DiarySelfSdo> self(
-            DiarySelfSdi req
+             DiarySelfSdi req
     ) {
         var rs = diaryService.self(req);
         return new ApiResponse(rs);

@@ -4,10 +4,10 @@ import com.green.dto.common.CommonSdo;
 import lombok.Data;
 
 @Data
-public class CommentPostSearchSdo extends CommonSdo {
+public class CommentPostSearchSdo {
     private Long id;
 
-    private Long statusId;
+    private Long postId;
 
     private Long userId;
 
@@ -19,5 +19,9 @@ public class CommentPostSearchSdo extends CommonSdo {
 
     private Long countLike;
 
+    private Integer countReply;
+
     private Boolean userLiked;
+
+    private String createAt;
 }

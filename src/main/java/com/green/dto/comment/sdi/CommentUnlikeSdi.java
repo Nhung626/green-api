@@ -9,7 +9,4 @@ import static com.green.constants.LabelKey.LABEL_USER_ID;
 public class CommentUnlikeSdi {
     @Validation(label = LABEL_COMMENT_ID, required = true)
     private Long commentId;
-
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

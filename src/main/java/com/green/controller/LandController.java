@@ -26,7 +26,7 @@ public class LandController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<LandSearchSdo>> search(
             LandSearchSdi req

@@ -23,7 +23,7 @@ public class GardenInfoRepoCustomImpl implements GardenInfoRepoCustom {
 
         Map<String, Object> queryParams = new HashMap<>();
 
-        StringBuilder query = new StringBuilder("select id, name, cover_id, user_id " +
+        StringBuilder query = new StringBuilder("select id, name, cover_id, user_id, description " +
                 "from garden_info where status <> 2 ");
 
         if (!isNullObject(userId)) {

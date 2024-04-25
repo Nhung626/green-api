@@ -1,10 +1,8 @@
-package com.green.dto.user.sdi;
+package com.green.dto.userinfo.sdi;
 
 import lombok.Data;
 
 @Data
 public class UserUnfollowSdi {
-    private Long userId;
-
     private Long userFollowId;
 }

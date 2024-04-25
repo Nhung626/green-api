@@ -1,12 +1,15 @@
 package com.green.controller;
 
 import com.green.dto.common.ApiResponse;
+import com.green.dto.status.sdi.StatusLikeSdi;
+import com.green.dto.status.sdi.StatusUnlikeSdi;
+import com.green.dto.status.sdo.StatusLikeSdo;
+import com.green.dto.status.sdo.StatusUnlikeSdo;
 import com.green.dto.userinfo.sdi.*;
 import com.green.dto.userinfo.sdo.*;
 import com.green.service.UserInfoService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +17,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/user-info")
-@AllArgsConstructor
+@RequiredArgsConstructor
 //@Api(tags = "USER INFO", description = "THÔNG TIN CƠ BẢN VÀ GIỚI THIỆU")
 public class UserInfoController {
     private final UserInfoService userInfoService;
@@ -30,8 +33,8 @@ public class UserInfoController {
 
     @GetMapping("/search")
 //  ("[Tìm kiếm]")
-    public ApiResponse<Page<UserInfoSearchSdo>> search(
-            UserInfoSearchSdi req
+    public ApiResponse<UserInfoSearchSdo> search(
+            @RequestBody @Valid UserInfoSearchSdi req
     ) {
         var rs = userInfoService.search(req);
         return new ApiResponse(rs);
@@ -40,7 +43,7 @@ public class UserInfoController {
     @GetMapping("/self")
 //  ("[chi tiết]")
     public ApiResponse<UserInfoSelfSdo> self(
-            UserInfoSelfSdi req
+            @RequestBody UserInfoSelfSdi req
     ) {
         var rs = userInfoService.self(req);
         return new ApiResponse(rs);
@@ -56,12 +59,12 @@ public class UserInfoController {
         return new ApiResponse(rs);
     }
 
-    @PostMapping("/update-avata")
-//  ("[Cập nhập avata]")
-    public ApiResponse<UserAvataUpdateSdo> update(
-            UserAvataUpdateSdi req
+    @PostMapping("/update-avatar")
+//  ("[Cập nhập avatar]")
+    public ApiResponse<UserAvatarUpdateSdo> update(
+            UserAvatarUpdateSdi req
     ) throws IOException {
-        var rs = userInfoService.uploadAvata(req);
+        var rs = userInfoService.uploadAvatar(req);
         return new ApiResponse(rs);
     }
 
@@ -72,5 +75,21 @@ public class UserInfoController {
     ) {
         var rs = userInfoService.delete(req);
         return new ApiResponse(rs);
+    }
+
+    @PostMapping("/follow")
+    public ApiResponse<UserFollowSdo> like(
+            UserFollowSdi req
+    ){
+        var rs = userInfoService.follow(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unfollow")
+    public ApiResponse<UserUnfollowSdo> like(
+            UserUnfollowSdi req
+    ){
+        var rs = userInfoService.unfollow(req);
+        return new ApiResponse<>(rs);
     }
 }

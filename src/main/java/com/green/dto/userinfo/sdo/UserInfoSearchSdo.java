@@ -10,13 +10,13 @@ public class UserInfoSearchSdo {
 
     private Long userId;
 
-    private Long avataId;
+    private Long avatarId;
 
-    private int gender;
+    private String gender;
 
     private boolean isGenderP;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private boolean isDateOfBirthP;
 

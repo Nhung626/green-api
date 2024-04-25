@@ -4,7 +4,9 @@ import com.green.constants.Const;
 import com.green.dto.userinfo.sdi.*;
 import com.green.dto.userinfo.sdo.*;
 import com.green.exception.AppException;
+import com.green.model.Follow;
 import com.green.model.UserInfo;
+import com.green.repository.FollowRepo;
 import com.green.repository.UserInfoRepo;
 import com.green.service.MediaService;
 import com.green.service.UserInfoService;
@@ -26,19 +28,21 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoRepo userInfoRepo;
     private final CommonService commonService;
     private final MediaService mediaService;
+    private final FollowRepo followRepo;
 
     public UserInfoCreateSdo create(UserInfoCreateSdi req) throws IOException {
-        var avata = req.getAvata();
-        checkUser(req.getUserId());
+        var avatar = req.getAvatar();
+        Long userId = commonService.getIdLogin();
 
-        var userInfoOptional = userInfoRepo.findByUserId(req.getUserId());
+        var userInfoOptional = userInfoRepo.findByUserId(userId);
         if (userInfoOptional.isPresent())
             throw new AppException(ERROR_ALREADY_EXIST, List.of(LABEL_USER_INFO));
 
         var newUserInfo = copyProperties(req, UserInfo.class);
-        if (!avata.isEmpty()) {
-            var avataDto = mediaService.uploadFile(avata);
-            newUserInfo.setAvataId(avataDto.getId());
+        newUserInfo.setUserId(userId);
+        if (!avatar.isEmpty()) {
+            var avatarDto = mediaService.uploadFile(avatar);
+            newUserInfo.setAvatarId(avatarDto.getId());
         }
 
         userInfoRepo.save(newUserInfo);
@@ -46,14 +50,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     public UserInfoUpdateSdo update(UserInfoUpdateSdi req) throws IOException {
-        MultipartFile avata = req.getAvata();
-        checkUser(req.getUserId());
+        MultipartFile avatar = req.getAvatar();
+        Long userId = commonService.getIdLogin();
+        var userInfo = getUserInfoByUserID(userId);
 
-        var userInfo = getUserInfoByUserID(req.getUserId());
-
-        if (!avata.isEmpty()) {
-            var avataDto = mediaService.uploadFile(avata);
-            userInfo.setAvataId(avataDto.getId());
+        if (!avatar.isEmpty()) {
+            var avatarDto = mediaService.uploadFile(avatar);
+            userInfo.setAvatarId(avatarDto.getId());
         }
 
         BeanUtils.copyProperties(req, userInfo);
@@ -62,8 +65,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     public UserInfoSearchSdo search(UserInfoSearchSdi req) {
-        var userInfo = getUserInfoByUserID(req.getUserId());
-        return copyProperties(userInfo, UserInfoSearchSdo.class);
+        Long userId = commonService.getIdLogin();
+        return userInfoRepo.search(req, userId);
     }
 
     public UserInfoDeleteSdo delete(UserInfoDeleteSdi req) {
@@ -80,20 +83,49 @@ public class UserInfoServiceImpl implements UserInfoService {
         return copyProperties(userInfo, UserInfoSelfSdo.class);
     }
 
-    public UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req) throws IOException {
-        var avata = req.getAvata();
+    public UserAvatarUpdateSdo uploadAvatar(UserAvatarUpdateSdi req) throws IOException {
+        var avatar = req.getAvatar();
         checkUser(req.getUserId());
 
         var userInfo = getUserInfoByUserID(req.getUserId());
-        if (avata.isEmpty()) {
-            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, LABEL_USER_INFO_AVATA);
+        if (avatar.isEmpty()) {
+            throw new AppException(ERROR_FILE_OR_URL_REQUIRED, LABEL_USER_INFO_AVATAR);
         }
 
-        var avataDto = mediaService.uploadFile(avata);
-        userInfo.setAvataId(avataDto.getId());
+        var avatarDto = mediaService.uploadFile(avatar);
+        userInfo.setAvatarId(avatarDto.getId());
 
         userInfoRepo.save(userInfo);
-        return UserAvataUpdateSdo.of(userInfo.getId());
+        return UserAvatarUpdateSdo.of(userInfo.getId());
+    }
+
+    @Override
+    public UserFollowSdo follow(UserFollowSdi req) {
+        var userId = commonService.getIdLogin();
+        var userFollowId = req.getUserFollowId();
+
+        var existingSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
+        if (existingSave.isPresent()) {
+            throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER));
+        }
+
+        var newSave = new Follow(userId, userFollowId);
+
+        followRepo.save(newSave);
+        return UserFollowSdo.of(true);
+    }
+
+    @Override
+    public UserUnfollowSdo unfollow(UserUnfollowSdi req) {
+        var userId = commonService.getIdLogin();
+        var userFollowId = req.getUserFollowId();
+
+        var existingUnSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
+        if (existingUnSave.isPresent()) {
+            followRepo.deleteFollow(userId, userFollowId);
+            return UserUnfollowSdo.of(true);
+        }
+        throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER));
     }
 
     private void checkUser(Long userId) {

@@ -24,7 +24,7 @@ public class StatusController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<StatusSearchSdo>> search(
             StatusSearchSdi req
@@ -36,9 +36,9 @@ public class StatusController {
     @GetMapping("/self")
     //("[chi tiết]")
     public ApiResponse<StatusSelfSdo> self(
-            StatusSelfSdi req, Long userId
+            StatusSelfSdi req
     ){
-        var rs = statusService.self(req, userId);
+        var rs = statusService.self(req);
         return new ApiResponse(rs);
     }
 
@@ -63,7 +63,7 @@ public class StatusController {
 
     @PostMapping("/like")
     public ApiResponse<StatusLikeSdo> like(
-            @RequestBody @Valid StatusLikeSdi req
+            StatusLikeSdi req
     ){
         var rs = statusService.like(req);
         return new ApiResponse<>(rs);
@@ -71,7 +71,7 @@ public class StatusController {
 
     @PostMapping("/unlike")
     public ApiResponse<StatusUnlikeSdo> like(
-            @RequestBody @Valid StatusUnlikeSdi req
+            StatusUnlikeSdi req
     ){
         var rs = statusService.unlike(req);
         return new ApiResponse<>(rs);

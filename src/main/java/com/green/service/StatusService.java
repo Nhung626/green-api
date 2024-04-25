@@ -15,7 +15,7 @@ public interface StatusService {
 
     StatusDeleteSdo delete(StatusDeleteSdi req);
 
-    StatusSelfSdo self(StatusSelfSdi req, Long userId);
+    StatusSelfSdo self(StatusSelfSdi req);
 
     StatusLikeSdo like(StatusLikeSdi req);
 

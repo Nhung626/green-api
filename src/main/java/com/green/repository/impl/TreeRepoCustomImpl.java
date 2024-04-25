@@ -23,7 +23,7 @@ public class TreeRepoCustomImpl implements TreeRepoCustom {
 
         Map<String, Object> queryParams = new HashMap<>();
 
-        StringBuilder query = new StringBuilder("select id, name, type, start_date, end_date, img_id, garden_id, land_id " +
+        StringBuilder query = new StringBuilder("select id, name, type, start_date, end_date, img_id, garden_id, land_id, state, sum " +
                 "from tree where status <> 2 ");
 
         if (!isNullObject(landId)) {

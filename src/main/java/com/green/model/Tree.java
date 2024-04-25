@@ -1,8 +1,7 @@
 package com.green.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.green.constants.State;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +36,11 @@ public class Tree extends AbstractAudit{
 
     @Column(name = "garden_id")
     private Long gardenId;
+
+    @Column(name = "sum")
+    private int sum;
+
+    @Column(name = "state")
+    private State state;
+
 }

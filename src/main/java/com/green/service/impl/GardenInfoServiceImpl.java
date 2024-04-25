@@ -3,9 +3,14 @@ package com.green.service.impl;
 import com.green.constants.Const;
 import com.green.dto.gardeninfo.sdi.*;
 import com.green.dto.gardeninfo.sdo.*;
+import com.green.dto.userinfo.sdi.UserInfoSearchSdi;
+import com.green.dto.userinfo.sdo.UserInfoSearchSdo;
 import com.green.exception.AppException;
+import com.green.model.Follow;
 import com.green.model.GardenInfo;
+import com.green.repository.FollowRepo;
 import com.green.repository.GardenInfoRepo;
+import com.green.repository.UserInfoRepo;
 import com.green.service.GardenInfoService;
 import com.green.service.MediaService;
 import com.green.service.common.CommonService;
@@ -23,20 +28,22 @@ import static com.green.utils.DataUtil.copyProperties;
 @RequiredArgsConstructor
 public class GardenInfoServiceImpl implements GardenInfoService {
     private final GardenInfoRepo gardenInfoRepo;
+    private final UserInfoRepo userInfoRepo;
     private final MediaService mediaService;
     private final CommonService commonService;
+    private final FollowRepo followRepo;
 
     @Override
     public GardenInfoCreateSdo create(GardenInfoCreateSdi req) throws IOException {
         var cover = req.getCover();
-        checkUser(req.getUserId());
+        Long userId = commonService.getIdLogin();
 
-        var gardenInfoOptional = gardenInfoRepo.findByUserId(req.getUserId());
+        var gardenInfoOptional = gardenInfoRepo.findByUserId(userId);
         if (gardenInfoOptional.isPresent())
             throw new AppException(ERROR_ALREADY_EXIST, LABEL_GARDEN_INFO);
 
         var newGardenInfo = copyProperties(req, GardenInfo.class);
-
+        newGardenInfo.setUserId(userId);
         if (!cover.isEmpty()) {
             var coverDto = mediaService.uploadFile(cover);
             newGardenInfo.setCoverId(coverDto.getId());
@@ -65,7 +72,26 @@ public class GardenInfoServiceImpl implements GardenInfoService {
 
     @Override
     public List<GardenInfoSearchSdo> search(GardenInfoSearchSdi req) {
-        return gardenInfoRepo.search(req);
+        var res = gardenInfoRepo.search(req);
+        Long userId = commonService.getIdLogin();
+        res.forEach((data) -> {
+            var sdo = userInfoRepo.search(new UserInfoSearchSdi(req.getUserId()), userId);
+            data.setUserInfo(copyProperties(sdo,UserInfoSearchSdo.class));
+        });
+        return res;
+    }
+
+    @Override
+    public List<GardenInfoSearchSdo> getFollow() {
+        Long userId = commonService.getIdLogin();
+        List<Follow> followList = followRepo.findByUserId(userId);
+        List<GardenInfoSearchSdo> res = followList.stream().map((data)->{
+            var user = gardenInfoRepo.search(new GardenInfoSearchSdi(data.getUserFollowId())).get(0);
+            var sdo = userInfoRepo.search(new UserInfoSearchSdi(data.getUserFollowId()), userId);
+            user.setUserInfo(copyProperties(sdo,UserInfoSearchSdo.class));
+            return  user;
+        }).toList();
+        return res;
     }
 
     @Override

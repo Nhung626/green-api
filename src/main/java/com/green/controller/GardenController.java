@@ -26,11 +26,11 @@ public class GardenController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<GardenInfoSearchSdo>> search(
             GardenInfoSearchSdi req
-    ){
+    ) {
         var rs = gardenInfoService.search(req);
         return new ApiResponse(rs);
     }
@@ -39,7 +39,7 @@ public class GardenController {
     //("[chi tiết]")
     public ApiResponse<GardenInfoSelfSdo> self(
             @RequestBody GardenInfoSelfSdi req
-    ){
+    ) {
         var rs = gardenInfoService.self(req);
         return new ApiResponse(rs);
     }
@@ -69,6 +69,12 @@ public class GardenController {
             @RequestBody @Valid GardenInfoDeleteSdi req
     ) {
         var rs = gardenInfoService.delete(req);
+        return new ApiResponse(rs);
+    }
+
+    @GetMapping("/get-follows")
+    public ApiResponse<GardenInfoSelfSdo> getFollow() {
+        var rs = gardenInfoService.getFollow();
         return new ApiResponse(rs);
     }
 }

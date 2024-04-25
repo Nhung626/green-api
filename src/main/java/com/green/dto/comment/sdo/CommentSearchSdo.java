@@ -3,8 +3,10 @@ package com.green.dto.comment.sdo;
 import com.green.dto.common.CommonSdo;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
-public class CommentSearchSdo extends CommonSdo {
+public class CommentSearchSdo {
     private Long id;
 
     private Long statusId;
@@ -15,9 +17,13 @@ public class CommentSearchSdo extends CommonSdo {
 
     private String content;
 
+    private String createdAt;
+
     private Boolean isEdited;
 
     private Long countLike;
+
+    private Integer countReply;
 
     private Boolean userLiked;
 }

@@ -1,5 +1,8 @@
 package com.green.service;
 
+import com.green.dto.userinfo.sdi.UserUnfollowSdi;
+import com.green.dto.userinfo.sdo.UserFollowSdo;
+import com.green.dto.userinfo.sdo.UserUnfollowSdo;
 import com.green.dto.userinfo.sdi.*;
 import com.green.dto.userinfo.sdo.*;
 
@@ -11,5 +14,9 @@ public interface UserInfoService {
     UserInfoSearchSdo search(UserInfoSearchSdi req);
     UserInfoDeleteSdo delete(UserInfoDeleteSdi req);
     UserInfoSelfSdo self(UserInfoSelfSdi req);
-    UserAvataUpdateSdo uploadAvata(UserAvataUpdateSdi req) throws IOException;
+    UserAvatarUpdateSdo uploadAvatar(UserAvatarUpdateSdi req) throws IOException;
+
+    UserFollowSdo follow(UserFollowSdi req);
+
+    UserUnfollowSdo unfollow(UserUnfollowSdi req);
 }

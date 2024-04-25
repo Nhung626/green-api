@@ -15,7 +15,7 @@ public interface PostService {
 
     PostDeleteSdo delete(PostDeleteSdi req);
 
-    PostSelfSdo self(PostSelfSdi req, Long userId);
+    PostSelfSdo self(PostSelfSdi req);
 
     PostLikeSdo like(PostLikeSdi req);
 
@@ -24,4 +24,6 @@ public interface PostService {
     PostSaveSdo save(PostSaveSdi req);
 
     PostUnSaveSdo unSave(PostUnsaveSdi req);
+
+    List<PostSelfSdo> getAllSave();
 }

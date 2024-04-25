@@ -12,6 +12,8 @@ public class PostSearchSdo {
 
     private String title;
 
+    private String general;
+
     //loại cây
     private String typeTree;
 
@@ -30,4 +32,6 @@ public class PostSearchSdo {
     private Boolean userLiked;
 
     private Boolean userSaved;
+
+    private String createdAt;
 }

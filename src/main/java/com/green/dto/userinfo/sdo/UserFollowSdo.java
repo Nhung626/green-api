@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor(staticName = "of")
-public class UserAvataUpdateSdo {
-    private Long id;
+public class UserFollowSdo {
+    private boolean success;
 }

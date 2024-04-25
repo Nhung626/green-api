@@ -1,15 +1,20 @@
 package com.green.dto.land.sdo;
 
+import lombok.Data;
+
+@Data
 public class LandSearchSdo {
     private Long id;
 
     private String name;
 
+    private String createdAt;
+
     private String address;
 
-    private float area;
+    private String area;
 
-    private Long img_id;
+    private Long imgId;
 
     private Long userId;
 }

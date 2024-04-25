@@ -6,9 +6,9 @@ import lombok.Data;
 import static com.green.constants.LabelKey.LABEL_USER_ID;
 @Data
 public class StatusSearchSdi {
-    @Validation(label = LABEL_USER_ID, required = true)
     private String keywords;
 
+    @Validation(label = LABEL_USER_ID, required = true)
     private Long userId;
 
 }

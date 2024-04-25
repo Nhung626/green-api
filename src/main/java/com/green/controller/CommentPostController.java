@@ -30,12 +30,12 @@ public class CommentPostController {
         return new ApiResponse(rs);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     //("[Tìm kiếm]")
     public ApiResponse<List<CommentPostSearchSdo>> search(
-            CommentPostSearchSdi req, PageInfo pageInfo
+            CommentPostSearchSdi req
     ) {
-        var rs = commentPostService.search(req, pageInfo);
+        var rs = commentPostService.search(req);
         return new ApiResponse(rs);
     }
 
@@ -61,7 +61,7 @@ public class CommentPostController {
     @PostMapping("/delete")
     //("[Xóa]")
     public ApiResponse<CommentPostDeleteSdo> delete(
-            @RequestBody @Valid CommentPostDeleteSdi req
+             CommentPostDeleteSdi req
     ) {
         var rs = commentPostService.delete(req);
         return new ApiResponse(rs);
@@ -69,7 +69,7 @@ public class CommentPostController {
 
     @PostMapping("/like")
     public ApiResponse<CommentPostLikeSdo> like(
-            @RequestBody @Valid CommentPostLikeSdi req
+             CommentPostLikeSdi req
     ){
         var rs = commentPostService.like(req);
         return new ApiResponse<>(rs);
@@ -77,7 +77,7 @@ public class CommentPostController {
 
     @PostMapping("/unlike")
     public ApiResponse<CommentPostUnlikeSdo> like(
-            @RequestBody @Valid CommentPostUnlikeSdi req
+            CommentPostUnlikeSdi req
     ){
         var rs = commentPostService.unlike(req);
         return new ApiResponse<>(rs);

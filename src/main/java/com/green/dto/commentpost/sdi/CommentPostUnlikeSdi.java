@@ -10,6 +10,4 @@ public class CommentPostUnlikeSdi {
     @Validation(label = LABEL_COMMENT_ID, required = true)
     private Long commentPostId;
 
-    @Validation(label = LABEL_USER_ID, required = true)
-    private Long userId;
 }

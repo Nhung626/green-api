@@ -8,7 +8,7 @@ import com.green.dto.post.sdo.PostSelfSdo;
 import java.util.List;
 
 public interface PostRepoCustom {
-    List<PostSearchSdo> search (PostSearchSdi req);
+    List<PostSearchSdo> search (PostSearchSdi req, Long userId);
 
     PostSelfSdo self(PostSelfSdi req, Long userId);
 }
