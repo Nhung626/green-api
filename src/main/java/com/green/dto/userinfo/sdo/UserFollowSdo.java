@@ -1,10 +1,10 @@
-package com.green.dto.user.sdo;
+package com.green.dto.userinfo.sdo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor(staticName = "of")
-public class UserUnfollowSdo {
+public class UserFollowSdo {
     private boolean success;
 }

@@ -67,6 +67,7 @@ public class DiaryServiceImpl implements DiaryService {
             var medias = data.getMedias();
             var imgIds = medias.stream().map(AbstractAudit::getId).toList();
             res.setImgIds(imgIds);
+            res.setCreatedAt(data.getCreatedAt().toString());
             return res;
         }).toList();
     }

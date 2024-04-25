@@ -8,6 +8,8 @@ public class LandSearchSdo {
 
     private String name;
 
+    private String createdAt;
+
     private String address;
 
     private String area;

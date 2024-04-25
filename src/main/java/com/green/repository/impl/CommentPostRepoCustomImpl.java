@@ -20,7 +20,7 @@ public class CommentPostRepoCustomImpl implements CommentPostRepoCustom {
         var postId = req.getPostId();
 
         Map<String, Object> queryParams = new HashMap<>();
-        queryParams.put("postId", postId);
+//        queryParams.put("postId", postId);
         if (userId != null) {
             queryParams.put("userId", userId);
         }
@@ -28,9 +28,9 @@ public class CommentPostRepoCustomImpl implements CommentPostRepoCustom {
 //        String sqlCountAll = "select distinct count(1) over ()";
 //        String sqlGetData = ;
 
-        StringBuilder sqlConditional = new StringBuilder("select cp.id, cp.parent_id, cp.user_id, gf.name as user_name, cp.post_id, cp.content, count(cp_child.id) as countReply, " +
-                "(select count(*) from like_comment_post lcp where lcp.comment_id = c.id) as countLike " +
-                (userId != null ? ", exists(select 1 from like_comment_post lcp where lcp.comment_post_id = c.id and lcp.user_id = :userId)" : ", false") + " as userLiked ");
+        StringBuilder sqlConditional = new StringBuilder("select cp.id, cp.parent_id, cp.user_id, gf.name as user_name, cp.post_id, cp.content, count(cp_child.id) as countReply, cp.created_at, " +
+                "(select count(*) from like_comment_post lcp where lcp.comment_post_id = cp.id) as countLike " +
+                (userId != null ? ", exists(select 1 from like_comment_post lcp where lcp.comment_post_id = cp.id and lcp.user_id = :userId)" : ", false") + " as userLiked ");
         sqlConditional.append(" from comment_post cp ")
                 .append(" left join comment_post cp_child on cp.id = cp_child.parent_id and cp_child.status <> 2 ")
                 .append(" inner join user u on cp.user_id = u.id and u.status <> 2 ")

@@ -14,6 +14,8 @@ public class PostSelfSdo {
     //loại cây
     private String typeTree;
 
+    private String general;
+
     //mô tả
     private String description;
 

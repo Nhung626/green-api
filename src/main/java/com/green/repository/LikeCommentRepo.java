@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface LikeCommentRepo extends JpaRepository<LikeComment, Long> {
-    Optional<Like> findByUserIdAndCommentId(Long userId, Long commentId);
+    Optional<LikeComment> findByUserIdAndCommentId(Long userId, Long commentId);
 
     @Transactional
     @Modifying

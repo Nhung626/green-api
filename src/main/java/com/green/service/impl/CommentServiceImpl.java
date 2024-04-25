@@ -73,7 +73,8 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentSearchSdo> search(CommentSearchSdi req) {
         Long userId = commonService.getIdLogin();
-        return commentRepo.search(req, userId);
+         var res = commentRepo.search(req, userId);
+         return res;
     }
 
     @Override
@@ -87,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
         Long userId = commonService.getIdLogin();
         Long commentId = req.getCommentId();
 
-        Optional<Like> existingLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeComment> existingLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
         if (existingLike.isPresent()) {
             throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_COMMENT_LIKE));
         }
@@ -103,7 +104,7 @@ public class CommentServiceImpl implements CommentService {
         Long userId = commonService.getIdLogin();
         Long commentId = req.getCommentId();
 
-        Optional<Like> existingUnLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
+        Optional<LikeComment> existingUnLike = likeCommentRepo.findByUserIdAndCommentId(userId, commentId);
 
         if (existingUnLike.isPresent()) {
             likeCommentRepo.deleteLike(userId, commentId);

@@ -21,7 +21,4 @@ public class LikePost extends AbstractAudit{
 
     @Column(name = "user_id")
     private Long userId;
-
-    @Column(name = "time_start")
-    private LocalDate timeStart;
 }

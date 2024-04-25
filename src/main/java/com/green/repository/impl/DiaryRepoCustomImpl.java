@@ -22,7 +22,7 @@ public class DiaryRepoCustomImpl implements DiaryRepoCustom {
 
         Map<String, Object> queryParams = new HashMap<>();
 
-        StringBuilder query = new StringBuilder("select id, description, land_id, tree_id, create_at " +
+        StringBuilder query = new StringBuilder("select id, description, land_id, tree_id, created_at " +
                 "from diary where status <> 2 ");
 
         if (!isNullObject(treeId)) {

@@ -12,6 +12,7 @@ public interface GardenInfoService {
     GardenInfoUpdateSdo update(GardenInfoUpdateSdi req) throws IOException;
 
     List<GardenInfoSearchSdo> search(GardenInfoSearchSdi req);
+    List<GardenInfoSearchSdo> getFollow();
 
     GardenInfoDeleteSdo delete(GardenInfoDeleteSdi req);
 

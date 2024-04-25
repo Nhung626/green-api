@@ -12,4 +12,5 @@ public interface UserInfoRepo extends JpaRepository<UserInfo, Long> , UserInfoRe
 
     @Query(value = "select * from user_info where  user_id = :userId and status <>2 ", nativeQuery = true)
     Optional<UserInfo> findByUserId(Long userId);
+
 }

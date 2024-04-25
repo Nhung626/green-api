@@ -1,6 +1,10 @@
 package com.green.controller;
 
 import com.green.dto.common.ApiResponse;
+import com.green.dto.status.sdi.StatusLikeSdi;
+import com.green.dto.status.sdi.StatusUnlikeSdi;
+import com.green.dto.status.sdo.StatusLikeSdo;
+import com.green.dto.status.sdo.StatusUnlikeSdo;
 import com.green.dto.userinfo.sdi.*;
 import com.green.dto.userinfo.sdo.*;
 import com.green.service.UserInfoService;
@@ -30,7 +34,7 @@ public class UserInfoController {
     @GetMapping("/search")
 //  ("[Tìm kiếm]")
     public ApiResponse<UserInfoSearchSdo> search(
-            @RequestBody UserInfoSearchSdi req
+            @RequestBody @Valid UserInfoSearchSdi req
     ) {
         var rs = userInfoService.search(req);
         return new ApiResponse(rs);
@@ -71,5 +75,21 @@ public class UserInfoController {
     ) {
         var rs = userInfoService.delete(req);
         return new ApiResponse(rs);
+    }
+
+    @PostMapping("/follow")
+    public ApiResponse<UserFollowSdo> like(
+            UserFollowSdi req
+    ){
+        var rs = userInfoService.follow(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unfollow")
+    public ApiResponse<UserUnfollowSdo> like(
+            UserUnfollowSdi req
+    ){
+        var rs = userInfoService.unfollow(req);
+        return new ApiResponse<>(rs);
     }
 }

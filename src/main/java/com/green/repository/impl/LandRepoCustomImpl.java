@@ -21,7 +21,7 @@ public class LandRepoCustomImpl implements LandRepoCustom {
 
         Map<String, Object> queryParams = new HashMap<>();
 
-        StringBuilder query = new StringBuilder("select id, name, address, area, img_id, garden_id, user_id " +
+        StringBuilder query = new StringBuilder("select id, name, address, area, img_id, garden_id, user_id, created_at " +
                 "from land where status <> 2 ");
 
         if (!isNullObject(userId)) {

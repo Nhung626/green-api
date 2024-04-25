@@ -19,6 +19,9 @@ public class PostCreateSdi {
     @Validation(label = LABEL_POST_TYPE_TREE, required = true)
     private String typeTree;
 
+    @Validation(label = LABEL_POST_GENERAL, required = true)
+    private String general;
+
     //mô tả
     @Validation(label = LABEL_POST_DESCRIPTION, required = true)
     private String description;

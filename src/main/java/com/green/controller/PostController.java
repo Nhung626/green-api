@@ -67,17 +67,39 @@ public class PostController {
 
     @PostMapping("/like")
     public ApiResponse<PostLikeSdo> like(
-             PostLikeSdi req
-    ){
+            PostLikeSdi req
+    ) {
         var rs = postService.like(req);
         return new ApiResponse<>(rs);
     }
 
     @PostMapping("/unlike")
     public ApiResponse<PostUnlikeSdo> like(
-             PostUnlikeSdi req
-    ){
+            PostUnlikeSdi req
+    ) {
         var rs = postService.unlike(req);
         return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/save")
+    public ApiResponse<PostSaveSdo> save(
+            PostSaveSdi req
+    ) {
+        var rs = postService.save(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @PostMapping("/unsave")
+    public ApiResponse<PostUnSaveSdo> unsave(
+            PostUnsaveSdi req
+    ) {
+        var rs = postService.unSave(req);
+        return new ApiResponse<>(rs);
+    }
+
+    @GetMapping("/get-all-save")
+    public ApiResponse<List<PostSelfSdo>> getAll() {
+        var rs = postService.getAllSave();
+        return new ApiResponse(rs);
     }
 }

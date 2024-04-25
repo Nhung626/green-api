@@ -12,11 +12,11 @@ public class UserInfoSelfSdo {
 
     private Long avatarId;
 
-    private int gender;
+    private String gender;
 
     private boolean isGenderP;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private boolean isDateOfBirthP;
 

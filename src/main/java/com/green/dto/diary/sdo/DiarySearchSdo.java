@@ -1,6 +1,5 @@
 package com.green.dto.diary.sdo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
 
@@ -8,7 +7,7 @@ import java.util.List;
 //@AllArgsConstructor(staticName = "of")
 public class DiarySearchSdo {
     private  Long id;
-    private String createAt;
+    private String createdAt;
     private List<Long> imgIds;
     private String description;
     private Long landId;

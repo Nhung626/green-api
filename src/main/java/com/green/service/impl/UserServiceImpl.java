@@ -109,37 +109,6 @@ public class UserServiceImpl implements UserService {
         return UserDeleteSdo.of(true);
     }
 
-    @Override
-    public UserFollowSdo follow(UserFollowSdi req) {
-        var userId = req.getUserId();
-        var userFollowId = req.getUserFollowId();
-
-        Optional<Follow> existingSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
-        if (existingSave.isPresent()) {
-            throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_SAVE));
-        }
-
-        var newSave = new Follow();
-        newSave.setUserId(userId);
-        newSave.setUserId(userFollowId);
-
-        followRepo.save(newSave);
-        return UserFollowSdo.of(true);
-    }
-
-    @Override
-    public UserUnfollowSdo unfollow(UserUnfollowSdi req) {
-        var userId = req.getUserId();
-        var userFollowId = req.getUserFollowId();
-
-        Optional<Follow> existingUnSave = followRepo.findByUserIdAndUserFollowId(userId, userFollowId);
-        if (existingUnSave.isPresent()) {
-            followRepo.deleteFollow(userId, userFollowId);
-            return UserUnfollowSdo.of(true);
-        }
-        throw new AppException(ERROR_NOT_EXIST, List.of(LABEL_POST_UNSAVE));
-    }
-
     private User getUser(Long id) {
         return userRepo.findById(id)
                 .orElseThrow(() -> new AppException(ERROR_NOT_EXIST, List.of(LABEL_USER, id)));
